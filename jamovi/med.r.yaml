@@ -1,0 +1,140 @@
+---
+name:  med
+title: Mediation
+jrs:   '1.1'
+
+items:
+    - name: med 
+      title: Mediation Estimates
+      type: Table
+      description: a table containing mediation estimates
+      clearWith:
+        - dep
+        - pred
+        - med
+        - estMethod
+
+      columns:
+        - name: effect
+          title: 'Effect'
+          type: text
+          
+        - name: label
+          title: 'Label'
+          type: text
+          format: narrow
+          visible: (label)
+
+        - name: est
+          title: 'Estimate'
+          type: number
+
+        - name: se
+          title: 'SE'
+          type: number
+
+        - name: lower
+          title: Lower
+          type: number
+          visible: (ci)
+
+        - name: upper
+          title: Upper
+          type: number
+          visible: (ci)
+
+        - name: z
+          title: 'Z'
+          type: number
+          visible: (test)
+
+        - name: p
+          title: p
+          type: number
+          format: zto,pvalue
+          visible: (test)
+          
+        - name: pm
+          title: '% Mediation'
+          type: number
+          visible: (pm)
+          
+    - name: paths 
+      title: Path Estimates
+      type: Table
+      description: a table containing the individual path estimates
+      rows: 3
+      visible: (paths)
+      clearWith:
+        - dep
+        - pred
+        - med
+        - estMethod
+
+      columns:
+        - name: var1
+          title: ''
+          type: text
+          
+        - name: arrow
+          title: ''
+          type: text
+          format: narrow
+          
+        - name: var2
+          title: ''
+          type: text
+          
+        - name: label
+          title: 'Label'
+          type: text
+          format: narrow
+          visible: (label)
+
+        - name: est
+          title: 'Estimate'
+          type: number
+
+        - name: se
+          title: 'SE'
+          type: number
+
+        - name: lower
+          title: Lower
+          type: number
+          visible: (ci)
+
+        - name: upper
+          title: Upper
+          type: number
+          visible: (ci)
+
+        - name: z
+          title: 'Z'
+          type: number
+          visible: (test)
+
+        - name: p
+          title: p
+          type: number
+          format: zto,pvalue
+          visible: (test)
+          
+    - name: coefPlot
+      title: Coefficient Plot
+      type: Image
+      width: 550
+      height: 250
+      renderFun: .coefPlot
+      visible: (coefPlot)
+      clearWith:
+        - dep
+        - pred
+        - med
+        - estMethod
+        - ciWidth
+        
+    - name:  modelSyntax
+      type:  Property
+      description: the lavaan syntax used to fit the mediation model
+...

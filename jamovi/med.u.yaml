@@ -1,0 +1,94 @@
+title: Mediation
+name: med
+jus: '2.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Dependent Variable
+        children:
+          - type: VariablesListBox
+            name: dep
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Mediator
+        children:
+          - type: VariablesListBox
+            name: med
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Predictor
+        children:
+          - type: VariablesListBox
+            name: pred
+            maxItemCount: 1
+            isTarget: true
+  - type: LayoutBox
+    margin: large
+    stretchFactor: 1
+    children:
+      - type: LayoutBox
+        margin: large
+        stretchFactor: 1
+        cell:
+          column: 0
+          row: 0
+        children:
+          - type: Label
+            label: Estimation Method for SE's
+            children:
+              - type: RadioButton
+                name: estMethod_standard
+                optionName: estMethod
+                optionPart: standard
+              - type: RadioButton
+                name: estMethod_bootstrap
+                optionName: estMethod
+                optionPart: bootstrap
+                children:
+                  - name: bootstrap
+                    type: TextBox
+                    label: ''
+                    suffix: samples
+                    format: number
+                    inputPattern: '[0-9]+'
+                    enable: (estMethod_bootstrap)
+          - type: Label
+            label: Estimates
+            children:
+              - type: CheckBox
+                name: label
+              - type: CheckBox
+                name: test
+              - type: CheckBox
+                name: ci
+                children:
+                  - type: TextBox
+                    name: ciWidth
+                    label: Interval
+                    suffix: '%'
+                    format: number
+                    inputPattern: '[0-9]+'
+                    enable: (ci)
+              - type: CheckBox
+                name: pm
+      - type: LayoutBox
+        margin: large
+        stretchFactor: 1
+        cell:
+          column: 1
+          row: 0
+        children:
+          - type: Label
+            label: Additional Output
+            children:
+              - type: CheckBox
+                name: paths
+              - type: CheckBox
+                name: coefPlot

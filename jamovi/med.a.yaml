@@ -1,0 +1,137 @@
+---
+name:  med
+title: Mediation
+menuGroup: medmod
+version: '1.0.0'
+jas: '1.1'
+
+options:
+    - name: data
+      type: Data
+      description:
+          R: the data as a data frame
+
+    - name: dep
+      title: Dependent Variable
+      type: Variable
+      suggested:
+        - continuous
+      permitted:
+        - continuous
+        - nominal
+        - ordinal
+      description:
+          R: a string naming the dependent variable
+
+    - name: med
+      title: Mediator
+      type: Variable
+      suggested:
+        - continuous
+      permitted:
+        - continuous
+        - nominal
+        - ordinal
+      description:
+          R: a string naming the mediator variable
+
+    - name: pred
+      title: Predictor
+      type: Variable
+      suggested:
+        - continuous
+      permitted:
+        - continuous
+        - nominal
+        - ordinal
+      description:
+          R: a string naming the predictor variable
+      
+    - name: estMethod
+      title: "Estimation Method for SE's"
+      type: List
+      options:
+        - name: standard
+          title: Standard
+        - name: bootstrap
+          title: Bootstrap
+      default: standard
+      description:
+          R: >
+            `'standard'` (default), or `'bootstrap'`, the estimation method to use
+            
+    - name: bootstrap
+      title: Samples
+      type: Integer
+      min: 1
+      default: 1000
+      description:
+          R: >
+            a number between 1 and 100000 (default: 1000) specifying the number of 
+            samples that need to been drawn in the bootstrap method
+
+    - name: test
+      title: Test statistics
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, provide 'Z' and 'p' values
+            for the mediation estimates
+
+    - name: ci
+      title: Confidence interval
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide a confidence interval
+            for the mediation estimates
+
+    - name: ciWidth
+      title: Confidence level
+      type: Number
+      min: 50
+      max: 99.9
+      default: 95
+      description:
+          R: >
+            a number between 50 and 99.9 (default: 95) specifying the confidence
+            interval width that is used as `'ci'`
+            
+    - name: pm
+      title: Percent mediation
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide the percent mediation 
+            effect size for the mediation estimates
+            
+    - name: paths
+      title: Path estimates
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide the individual estimates of the 
+            paths in the mediation model
+            
+    - name: label
+      title: Labels
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, provide insightful labels for all estimates
+
+    - name: coefPlot
+      title: Coefficient plot
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide a coefficient plot where
+            for each estimator the estimated coefficient and confidence
+            intervals are plotted.
+...

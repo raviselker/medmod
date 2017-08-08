@@ -1,0 +1,117 @@
+---
+name:  mod
+title: Moderation
+jrs:   '1.1'
+
+items:
+    - name: mod 
+      title: Moderation Estimates
+      type: Table
+      description: a table containing moderation estimates
+      clearWith:
+        - dep
+        - pred
+        - mod
+        - estMethod
+
+      columns:
+        - name: term
+          title: ''
+          type: text
+
+        - name: est
+          title: 'Estimate'
+          type: number
+
+        - name: se
+          title: 'SE'
+          type: number
+
+        - name: lower
+          title: Lower
+          type: number
+          visible: (ci)
+
+        - name: upper
+          title: Upper
+          type: number
+          visible: (ci)
+
+        - name: z
+          title: 'Z'
+          type: number
+          visible: (test)
+
+        - name: p
+          title: p
+          type: number
+          format: zto,pvalue
+          visible: (test)
+
+    - name: simpleSlope
+      title: Simple Slope Analysis
+      type: Group
+      items:
+        - name: estimates 
+          title: Simple Slope Estimates
+          type: Table
+          description: a table containing the simple slope estimates
+          visible: (simpleSlopeEst)
+          clearWith:
+            - dep
+            - pred
+            - mod
+            - estMethod
+    
+          columns:
+            - name: term
+              title: ''
+              type: text
+    
+            - name: est
+              title: 'Estimate'
+              type: number
+    
+            - name: se
+              title: 'SE'
+              type: number
+    
+            - name: lower
+              title: Lower
+              type: number
+              visible: (ci)
+    
+            - name: upper
+              title: Upper
+              type: number
+              visible: (ci)
+    
+            - name: z
+              title: 'Z'
+              type: number
+              visible: (test)
+    
+            - name: p
+              title: p
+              type: number
+              format: zto,pvalue
+              visible: (test)
+              
+        - name: plot
+          title: Simple Slope Plot
+          type: Image
+          width: 550
+          height: 400
+          renderFun: .simpleSlopePlot
+          visible: (simpleSlopePlot)
+          clearWith:
+            - dep
+            - pred
+            - mod
+            - estMethod
+            - ciWidth
+              
+    - name:  modelSyntax
+      type:  Property
+      description: the lavaan syntax used to fit the moderation model
+...
