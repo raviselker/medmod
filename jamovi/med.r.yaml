@@ -120,13 +120,13 @@ items:
           format: zto,pvalue
           visible: (test)
           
-    - name: coefPlot
-      title: Coefficient Plot
+    - name: estPlot
+      title: Estimate Plot
       type: Image
       width: 550
       height: 250
-      renderFun: .coefPlot
-      visible: (coefPlot)
+      renderFun: .estPlot
+      visible: (estPlot)
       clearWith:
         - dep
         - pred

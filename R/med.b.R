@@ -27,7 +27,7 @@ medClass <- R6::R6Class(
                 
                 private$.populateMedTable(results)
                 private$.populatePathsTable(results)
-                private$.prepareCoefPlot(results)
+                private$.prepareEstPlot(results)
 
             }
         },
@@ -124,9 +124,9 @@ medClass <- R6::R6Class(
         },
         
         #### Plot functions ----
-        .prepareCoefPlot = function(results) {
+        .prepareEstPlot = function(results) {
             
-            image <- self$results$coefPlot
+            image <- self$results$estPlot
             est <- lavaan::parameterestimates(results$fit, standardized = TRUE, level = self$options$ciWidth / 100)
             
             labels <- c('ab', 'c', 'total')
@@ -149,7 +149,7 @@ medClass <- R6::R6Class(
             
             image$setState(df)
         },
-        .coefPlot = function(image, ggtheme, theme, ...) {
+        .estPlot = function(image, ggtheme, theme, ...) {
             
             if (is.null(image$state))
                 return(FALSE)
@@ -186,8 +186,8 @@ medClass <- R6::R6Class(
             
             data <- list()
             data[[jmvcore::toB64(dep)]] <- jmvcore::toNumeric(self$data[[dep]])
-            data[[jmvcore::toB64(pred)]] <- center(jmvcore::toNumeric(self$data[[pred]]))
-            data[[jmvcore::toB64(med)]] <- center(jmvcore::toNumeric(self$data[[med]]))
+            data[[jmvcore::toB64(pred)]] <- jmvcore::toNumeric(self$data[[pred]])
+            data[[jmvcore::toB64(med)]] <- jmvcore::toNumeric(self$data[[med]])
             
             attr(data, 'row.names') <- seq_len(length(data[[1]]))
             attr(data, 'class') <- 'data.frame'

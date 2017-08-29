@@ -91,4 +91,4 @@ children:
               - type: CheckBox
                 name: paths
               - type: CheckBox
-                name: coefPlot
+                name: estPlot

@@ -125,13 +125,13 @@ options:
           R: >
             `TRUE` (default) or `FALSE`, provide insightful labels for all estimates
 
-    - name: coefPlot
-      title: Coefficient plot
+    - name: estPlot
+      title: Estimate plot
       type: Bool
       default: false
       description:
           R: >
-            `TRUE` or `FALSE` (default), provide a coefficient plot where
+            `TRUE` or `FALSE` (default), provide an estimate plot where
             for each estimator the estimated coefficient and confidence
             intervals are plotted.
 ...

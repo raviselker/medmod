@@ -17,7 +17,7 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             pm = FALSE,
             paths = FALSE,
             label = FALSE,
-            coefPlot = FALSE, ...) {
+            estPlot = FALSE, ...) {
 
             super$initialize(
                 package='medmod',
@@ -90,9 +90,9 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "label",
                 label,
                 default=FALSE)
-            private$..coefPlot <- jmvcore::OptionBool$new(
-                "coefPlot",
-                coefPlot,
+            private$..estPlot <- jmvcore::OptionBool$new(
+                "estPlot",
+                estPlot,
                 default=FALSE)
         
             self$.addOption(private$..dep)
@@ -106,7 +106,7 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..pm)
             self$.addOption(private$..paths)
             self$.addOption(private$..label)
-            self$.addOption(private$..coefPlot)
+            self$.addOption(private$..estPlot)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -120,7 +120,7 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         pm = function() private$..pm$value,
         paths = function() private$..paths$value,
         label = function() private$..label$value,
-        coefPlot = function() private$..coefPlot$value),
+        estPlot = function() private$..estPlot$value),
     private = list(
         ..dep = NA,
         ..med = NA,
@@ -133,7 +133,7 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..pm = NA,
         ..paths = NA,
         ..label = NA,
-        ..coefPlot = NA)
+        ..estPlot = NA)
 )
 
 medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -141,12 +141,12 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
     active = list(
         med = function() private$..med,
         paths = function() private$..paths,
-        coefPlot = function() private$..coefPlot,
+        estPlot = function() private$..estPlot,
         modelSyntax = function() private$..modelSyntax),
     private = list(
         ..med = NA,
         ..paths = NA,
-        ..coefPlot = NA,
+        ..estPlot = NA,
         ..modelSyntax = NA),
     public=list(
         initialize=function(options) {
@@ -268,14 +268,14 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         `type`="number", 
                         `format`="zto,pvalue", 
                         `visible`="(test)")))
-            private$..coefPlot <- jmvcore::Image$new(
+            private$..estPlot <- jmvcore::Image$new(
                 options=options,
-                name="coefPlot",
-                title="Coefficient Plot",
+                name="estPlot",
+                title="Estimate Plot",
                 width=550,
                 height=250,
-                renderFun=".coefPlot",
-                visible="(coefPlot)",
+                renderFun=".estPlot",
+                visible="(estPlot)",
                 clearWith=list(
                     "dep",
                     "pred",
@@ -285,7 +285,7 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             private$..modelSyntax <- NULL
             self$add(private$..med)
             self$add(private$..paths)
-            self$add(private$..coefPlot)},
+            self$add(private$..estPlot)},
         .setModelSyntax=function(x) private$..modelSyntax <- x))
 
 medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -330,14 +330,14 @@ medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #'   estimates of the  paths in the mediation model 
 #' @param label \code{TRUE} (default) or \code{FALSE}, provide insightful 
 #'   labels for all estimates 
-#' @param coefPlot \code{TRUE} or \code{FALSE} (default), provide a 
-#'   coefficient plot where for each estimator the estimated coefficient and 
-#'   confidence intervals are plotted. 
+#' @param estPlot \code{TRUE} or \code{FALSE} (default), provide an estimate 
+#'   plot where for each estimator the estimated coefficient and confidence 
+#'   intervals are plotted. 
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$med} \tab \tab \tab \tab \tab a table containing mediation estimates \cr
 #'   \code{results$paths} \tab \tab \tab \tab \tab a table containing the individual path estimates \cr
-#'   \code{results$coefPlot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$estPlot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the mediation model \cr
 #' }
 #'
@@ -361,7 +361,7 @@ med <- function(
     pm = FALSE,
     paths = FALSE,
     label = FALSE,
-    coefPlot = FALSE) {
+    estPlot = FALSE) {
 
     if ( ! requireNamespace('jmvcore'))
         stop('med requires jmvcore to be installed (restart may be required)')
@@ -378,7 +378,7 @@ med <- function(
         pm = pm,
         paths = paths,
         label = label,
-        coefPlot = coefPlot)
+        estPlot = estPlot)
 
     results <- medResults$new(
         options = options)
