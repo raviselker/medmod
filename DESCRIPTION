@@ -1,12 +1,22 @@
 Package: medmod
 Type: Package
-Title: Mediation and moderation analyses
+Title: Simple mediation and moderation analyses
 Version: 1.0.0
+Date: 2017-08-30
 Author: Ravi Selker
 Maintainer: Ravi Selker <selker.ravi@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Description: A wrapper for lavaan that allows you
+    to do simple mediation and moderation.
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-Imports: jmvcore (>= 0.5.5), R6, lavaan, ggplot2
+Depends:
+    R (>= 3.2)
+Imports: 
+    jmvcore (>= 0.5.5), 
+    R6, 
+    lavaan, 
+    ggplot2
+Suggests: 
+    testthat
+RoxygenNote: 6.0.1
