@@ -61,5 +61,28 @@ Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.f
 \code{as.data.frame(results$med)}
 }
 \description{
-Mediation
+Simple mediation analysis
+}
+\examples{
+\dontrun{
+set.seed(1234)
+X <- rnorm(100)
+M <- 0.5*X + rnorm(100)
+Y <- 0.7*M + rnorm(100)
+dat <- data.frame(X=X, M=M, Y=Y)
+
+med(dat, dep = "Y", pred = "X", med = "M")
+
+#
+#  Mediation Estimates                                   
+#  ----------------------------------------------------- 
+#    Effect      Estimate    SE        Z        p        
+#  ----------------------------------------------------- 
+#    Indirect      0.3736    0.0920    4.059    < .001   
+#    Direct        0.0364    0.1044    0.348     0.728   
+#    Total         0.4100    0.1247    3.287     0.001   
+#  ----------------------------------------------------- 
+# 
+#
+}
 }

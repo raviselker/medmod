@@ -309,7 +309,30 @@ medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 #' Mediation
 #'
+#' Simple mediation analysis
+#'
+#' @examples
+#' \dontrun{
+#' set.seed(1234)
+#' X <- rnorm(100)
+#' M <- 0.5*X + rnorm(100)
+#' Y <- 0.7*M + rnorm(100)
+#' dat <- data.frame(X=X, M=M, Y=Y)
 #' 
+#' med(dat, dep = "Y", pred = "X", med = "M")
+#' 
+#' #
+#' #  Mediation Estimates                                   
+#' #  ----------------------------------------------------- 
+#' #    Effect      Estimate    SE        Z        p        
+#' #  ----------------------------------------------------- 
+#' #    Indirect      0.3736    0.0920    4.059    < .001   
+#' #    Direct        0.0364    0.1044    0.348     0.728   
+#' #    Total         0.4100    0.1247    3.287     0.001   
+#' #  ----------------------------------------------------- 
+#' # 
+#' #
+#' }
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param med a string naming the mediator variable

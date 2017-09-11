@@ -15,10 +15,12 @@ analyses:
     ns: medmod
     menuGroup: medmod
     menuTitle: Mediation
+    description: Simple mediation analysis
   - title: Moderation
     name: mod
     ns: medmod
     menuGroup: medmod
     menuTitle: Moderation
+    description: Simple mediation analysis
 
 ...

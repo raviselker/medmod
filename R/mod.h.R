@@ -279,7 +279,31 @@ modBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 
 #' Moderation
 #'
+#' Simple mediation analysis
+#'
+#' @examples
+#' \dontrun{
+#' set.seed(1234)
+#' X <- rnorm(100)
+#' M <- rnorm(100)
+#' X_M <- X*M
+#' Y <- 0.7*X + 0.1*M + 4.2*X_M + rnorm(100)
+#' dat <- data.frame(X=X, M=M, Y=Y)   
 #' 
+#' mod(dat, dep = "Y", pred = "X", mod = "M")
+#' 
+#' #
+#' #  Moderation Estimates                               
+#' #  -------------------------------------------------- 
+#' #             Estimate    SE        Z        p        
+#' #  -------------------------------------------------- 
+#' #    X           0.951    0.0965     9.86    < .001   
+#' #    M          -0.471    0.0923    -5.10    < .001   
+#' #    X:M         4.185    0.1009    41.50    < .001   
+#' #  -------------------------------------------------- 
+#' # 
+#' # 
+#' }
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param mod a string naming the moderator variable
