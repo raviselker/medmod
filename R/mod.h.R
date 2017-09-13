@@ -282,7 +282,6 @@ modBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' Simple mediation analysis
 #'
 #' @examples
-#' \dontrun{
 #' set.seed(1234)
 #' X <- rnorm(100)
 #' M <- rnorm(100)
@@ -303,7 +302,7 @@ modBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' #  -------------------------------------------------- 
 #' # 
 #' # 
-#' }
+#' 
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param mod a string naming the moderator variable

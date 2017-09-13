@@ -64,7 +64,6 @@ Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.f
 Simple mediation analysis
 }
 \examples{
-\dontrun{
 set.seed(1234)
 X <- rnorm(100)
 M <- 0.5*X + rnorm(100)
@@ -84,5 +83,5 @@ med(dat, dep = "Y", pred = "X", med = "M")
 #  ----------------------------------------------------- 
 # 
 #
-}
+
 }

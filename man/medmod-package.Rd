@@ -6,7 +6,7 @@
 \alias{medmod-package}
 \title{medmod: Simple Mediation and Moderation Analysis}
 \description{
-A package for simple mediation and moderation based on the \code{\link[lavaan]{lavaan}} 
+A package for simple mediation and moderation based on the \code{\link[lavaan]{lavaan}}
 package by Yves Rosseel. Medmod is also available as a
 module for 'jamovi' (see \href{https://www.jamovi.org}{www.jamovi.org} for
 more information).

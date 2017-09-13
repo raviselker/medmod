@@ -312,7 +312,6 @@ medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' Simple mediation analysis
 #'
 #' @examples
-#' \dontrun{
 #' set.seed(1234)
 #' X <- rnorm(100)
 #' M <- 0.5*X + rnorm(100)
@@ -332,7 +331,7 @@ medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' #  ----------------------------------------------------- 
 #' # 
 #' #
-#' }
+#' 
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param med a string naming the mediator variable

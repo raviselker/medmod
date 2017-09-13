@@ -4,4 +4,6 @@
 *.tar.gz
 ..Rcheck
 
-build
+build/
+
+*.jmo
