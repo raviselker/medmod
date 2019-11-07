@@ -1,8 +1,8 @@
 Package: medmod
 Type: Package
 Title: Simple Mediation and Moderation Analysis
-Version: 1.0.0
-Date: 2017-09-12
+Version: 1.1.0
+Date: 2019-11-07
 Author: Ravi Selker
 Maintainer: Ravi Selker <selker.ravi@gmail.com>
 Description: This toolbox allows you to do simple mediation and moderation
@@ -17,7 +17,7 @@ LazyData: true
 Depends:
     R (>= 3.2)
 Imports: 
-    jmvcore (>= 0.8.0), 
+    jmvcore (>= 1.0.0), 
     R6, 
     lavaan, 
     ggplot2

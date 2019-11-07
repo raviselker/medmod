@@ -22,34 +22,28 @@ modOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 name='mod',
                 requiresData=TRUE,
                 ...)
-        
+
             private$..dep <- jmvcore::OptionVariable$new(
                 "dep",
                 dep,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..mod <- jmvcore::OptionVariable$new(
                 "mod",
                 mod,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..pred <- jmvcore::OptionVariable$new(
                 "pred",
                 pred,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..estMethod <- jmvcore::OptionList$new(
                 "estMethod",
                 estMethod,
@@ -84,7 +78,7 @@ modOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "simpleSlopePlot",
                 simpleSlopePlot,
                 default=FALSE)
-        
+
             self$.addOption(private$..dep)
             self$.addOption(private$..mod)
             self$.addOption(private$..pred)
@@ -123,12 +117,10 @@ modOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
 modResults <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
-        mod = function() private$..mod,
-        simpleSlope = function() private$..simpleSlope,
+        mod = function() private$.items[["mod"]],
+        simpleSlope = function() private$.items[["simpleSlope"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
-        ..mod = NA,
-        ..simpleSlope = NA,
         ..modelSyntax = NA),
     public=list(
         initialize=function(options) {
@@ -136,7 +128,7 @@ modResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 options=options,
                 name="",
                 title="Moderation")
-            private$..mod <- jmvcore::Table$new(
+            self$add(jmvcore::Table$new(
                 options=options,
                 name="mod",
                 title="Moderation Estimates",
@@ -178,22 +170,20 @@ modResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         `title`="p", 
                         `type`="number", 
                         `format`="zto,pvalue", 
-                        `visible`="(test)")))
-            private$..simpleSlope <- R6::R6Class(
+                        `visible`="(test)"))))
+            self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
-                    estimates = function() private$..estimates,
-                    plot = function() private$..plot),
-                private = list(
-                    ..estimates = NA,
-                    ..plot = NA),
+                    estimates = function() private$.items[["estimates"]],
+                    plot = function() private$.items[["plot"]]),
+                private = list(),
                 public=list(
                     initialize=function(options) {
                         super$initialize(
                             options=options,
                             name="simpleSlope",
                             title="Simple Slope Analysis")
-                        private$..estimates <- jmvcore::Table$new(
+                        self$add(jmvcore::Table$new(
                             options=options,
                             name="estimates",
                             title="Simple Slope Estimates",
@@ -236,8 +226,8 @@ modResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                                     `title`="p", 
                                     `type`="number", 
                                     `format`="zto,pvalue", 
-                                    `visible`="(test)")))
-                        private$..plot <- jmvcore::Image$new(
+                                    `visible`="(test)"))))
+                        self$add(jmvcore::Image$new(
                             options=options,
                             name="plot",
                             title="Simple Slope Plot",
@@ -250,12 +240,8 @@ modResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                                 "pred",
                                 "mod",
                                 "estMethod",
-                                "ciWidth"))
-                        self$add(private$..estimates)
-                        self$add(private$..plot)}))$new(options=options)
-            private$..modelSyntax <- NULL
-            self$add(private$..mod)
-            self$add(private$..simpleSlope)},
+                                "ciWidth")))}))$new(options=options))
+            private$..modelSyntax <- NULL},
         .setModelSyntax=function(x) private$..modelSyntax <- x))
 
 modBase <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -287,40 +273,40 @@ modBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' M <- rnorm(100)
 #' X_M <- X*M
 #' Y <- 0.7*X + 0.1*M + 4.2*X_M + rnorm(100)
-#' dat <- data.frame(X=X, M=M, Y=Y)   
-#' 
+#' dat <- data.frame(X=X, M=M, Y=Y)
+#'
 #' mod(dat, dep = "Y", pred = "X", mod = "M")
-#' 
+#'
 #' #
-#' #  Moderation Estimates                               
-#' #  -------------------------------------------------- 
-#' #             Estimate    SE        Z        p        
-#' #  -------------------------------------------------- 
-#' #    X           0.951    0.0965     9.86    < .001   
-#' #    M          -0.471    0.0923    -5.10    < .001   
-#' #    X:M         4.185    0.1009    41.50    < .001   
-#' #  -------------------------------------------------- 
-#' # 
-#' # 
-#' 
+#' #  Moderation Estimates
+#' #  --------------------------------------------------
+#' #             Estimate    SE        Z        p
+#' #  --------------------------------------------------
+#' #    X           0.951    0.0965     9.86    < .001
+#' #    M          -0.471    0.0923    -5.10    < .001
+#' #    X:M         4.185    0.1009    41.50    < .001
+#' #  --------------------------------------------------
+#' #
+#' #
+#'
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param mod a string naming the moderator variable
 #' @param pred a string naming the predictor variable
-#' @param estMethod \code{'standard'} (default), or \code{'bootstrap'}, the 
-#'   estimation method to use 
-#' @param bootstrap a number between 1 and 100000 (default: 1000) specifying 
-#'   the number of  samples that need to been drawn in the bootstrap method 
-#' @param test \code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p' 
-#'   values for the mediation estimates 
-#' @param ci \code{TRUE} or \code{FALSE} (default), provide a confidence 
-#'   interval for the mediation estimates 
-#' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the 
-#'   confidence interval width that is used as \code{'ci'} 
-#' @param simpleSlopeEst \code{TRUE} or \code{FALSE} (default), provide the 
-#'   estimates of the simple slopes. 
-#' @param simpleSlopePlot \code{TRUE} or \code{FALSE} (default), provide a 
-#'   plot of the simple slopes. 
+#' @param estMethod \code{'standard'} (default), or \code{'bootstrap'}, the
+#'   estimation method to use
+#' @param bootstrap a number between 1 and 100000 (default: 1000) specifying
+#'   the number of  samples that need to been drawn in the bootstrap method
+#' @param test \code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
+#'   values for the mediation estimates
+#' @param ci \code{TRUE} or \code{FALSE} (default), provide a confidence
+#'   interval for the mediation estimates
+#' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the
+#'   confidence interval width that is used as \code{'ci'}
+#' @param simpleSlopeEst \code{TRUE} or \code{FALSE} (default), provide the
+#'   estimates of the simple slopes.
+#' @param simpleSlopePlot \code{TRUE} or \code{FALSE} (default), provide a
+#'   plot of the simple slopes.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$mod} \tab \tab \tab \tab \tab a table containing moderation estimates \cr
@@ -352,6 +338,17 @@ mod <- function(
     if ( ! requireNamespace('jmvcore'))
         stop('mod requires jmvcore to be installed (restart may be required)')
 
+    if ( ! missing(dep)) dep <- jmvcore::resolveQuo(jmvcore::enquo(dep))
+    if ( ! missing(mod)) mod <- jmvcore::resolveQuo(jmvcore::enquo(mod))
+    if ( ! missing(pred)) pred <- jmvcore::resolveQuo(jmvcore::enquo(pred))
+    if (missing(data))
+        data <- jmvcore::marshalData(
+            parent.frame(),
+            `if`( ! missing(dep), dep, NULL),
+            `if`( ! missing(mod), mod, NULL),
+            `if`( ! missing(pred), pred, NULL))
+
+
     options <- modOptions$new(
         dep = dep,
         mod = mod,
@@ -363,9 +360,6 @@ mod <- function(
         ciWidth = ciWidth,
         simpleSlopeEst = simpleSlopeEst,
         simpleSlopePlot = simpleSlopePlot)
-
-    results <- modResults$new(
-        options = options)
 
     analysis <- modClass$new(
         options = options,

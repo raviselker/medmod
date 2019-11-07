@@ -3,7 +3,7 @@ name:  mod
 title: Moderation
 menuGroup: medmod
 version: '1.0.0'
-jas: '1.1'
+jas: '1.2'
 
 description:
     main: Simple mediation analysis
@@ -44,9 +44,7 @@ options:
       suggested:
         - continuous
       permitted:
-        - continuous
-        - nominal
-        - ordinal
+        - numeric
       description:
           R: a string naming the dependent variable
 
@@ -56,9 +54,7 @@ options:
       suggested:
         - continuous
       permitted:
-        - continuous
-        - nominal
-        - ordinal
+        - numeric
       description:
           R: a string naming the moderator variable
 
@@ -68,9 +64,7 @@ options:
       suggested:
         - continuous
       permitted:
-        - continuous
-        - nominal
-        - ordinal
+        - numeric
       description:
           R: a string naming the predictor variable
       

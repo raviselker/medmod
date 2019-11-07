@@ -24,34 +24,28 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 name='med',
                 requiresData=TRUE,
                 ...)
-        
+
             private$..dep <- jmvcore::OptionVariable$new(
                 "dep",
                 dep,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..med <- jmvcore::OptionVariable$new(
                 "med",
                 med,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..pred <- jmvcore::OptionVariable$new(
                 "pred",
                 pred,
                 suggested=list(
                     "continuous"),
                 permitted=list(
-                    "continuous",
-                    "nominal",
-                    "ordinal"))
+                    "numeric"))
             private$..estMethod <- jmvcore::OptionList$new(
                 "estMethod",
                 estMethod,
@@ -94,7 +88,7 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "estPlot",
                 estPlot,
                 default=FALSE)
-        
+
             self$.addOption(private$..dep)
             self$.addOption(private$..med)
             self$.addOption(private$..pred)
@@ -139,14 +133,11 @@ medOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
 medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
-        med = function() private$..med,
-        paths = function() private$..paths,
-        estPlot = function() private$..estPlot,
+        med = function() private$.items[["med"]],
+        paths = function() private$.items[["paths"]],
+        estPlot = function() private$.items[["estPlot"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
-        ..med = NA,
-        ..paths = NA,
-        ..estPlot = NA,
         ..modelSyntax = NA),
     public=list(
         initialize=function(options) {
@@ -154,7 +145,7 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 options=options,
                 name="",
                 title="Mediation")
-            private$..med <- jmvcore::Table$new(
+            self$add(jmvcore::Table$new(
                 options=options,
                 name="med",
                 title="Mediation Estimates",
@@ -207,8 +198,8 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         `name`="pm", 
                         `title`="% Mediation", 
                         `type`="number", 
-                        `visible`="(pm)")))
-            private$..paths <- jmvcore::Table$new(
+                        `visible`="(pm)"))))
+            self$add(jmvcore::Table$new(
                 options=options,
                 name="paths",
                 title="Path Estimates",
@@ -267,8 +258,8 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         `title`="p", 
                         `type`="number", 
                         `format`="zto,pvalue", 
-                        `visible`="(test)")))
-            private$..estPlot <- jmvcore::Image$new(
+                        `visible`="(test)"))))
+            self$add(jmvcore::Image$new(
                 options=options,
                 name="estPlot",
                 title="Estimate Plot",
@@ -281,11 +272,8 @@ medResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "pred",
                     "med",
                     "estMethod",
-                    "ciWidth"))
-            private$..modelSyntax <- NULL
-            self$add(private$..med)
-            self$add(private$..paths)
-            self$add(private$..estPlot)},
+                    "ciWidth")))
+            private$..modelSyntax <- NULL},
         .setModelSyntax=function(x) private$..modelSyntax <- x))
 
 medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
@@ -317,44 +305,44 @@ medBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' M <- 0.5*X + rnorm(100)
 #' Y <- 0.7*M + rnorm(100)
 #' dat <- data.frame(X=X, M=M, Y=Y)
-#' 
+#'
 #' med(dat, dep = "Y", pred = "X", med = "M")
-#' 
+#'
 #' #
-#' #  Mediation Estimates                                   
-#' #  ----------------------------------------------------- 
-#' #    Effect      Estimate    SE        Z        p        
-#' #  ----------------------------------------------------- 
-#' #    Indirect      0.3736    0.0920    4.059    < .001   
-#' #    Direct        0.0364    0.1044    0.348     0.728   
-#' #    Total         0.4100    0.1247    3.287     0.001   
-#' #  ----------------------------------------------------- 
-#' # 
+#' #  Mediation Estimates
+#' #  -----------------------------------------------------
+#' #    Effect      Estimate    SE        Z        p
+#' #  -----------------------------------------------------
+#' #    Indirect      0.3736    0.0920    4.059    < .001
+#' #    Direct        0.0364    0.1044    0.348     0.728
+#' #    Total         0.4100    0.1247    3.287     0.001
+#' #  -----------------------------------------------------
 #' #
-#' 
+#' #
+#'
 #' @param data the data as a data frame
 #' @param dep a string naming the dependent variable
 #' @param med a string naming the mediator variable
 #' @param pred a string naming the predictor variable
-#' @param estMethod \code{'standard'} (default), or \code{'bootstrap'}, the 
-#'   estimation method to use 
-#' @param bootstrap a number between 1 and 100000 (default: 1000) specifying 
-#'   the number of  samples that need to been drawn in the bootstrap method 
-#' @param test \code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p' 
-#'   values for the mediation estimates 
-#' @param ci \code{TRUE} or \code{FALSE} (default), provide a confidence 
-#'   interval for the mediation estimates 
-#' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the 
-#'   confidence interval width that is used as \code{'ci'} 
-#' @param pm \code{TRUE} or \code{FALSE} (default), provide the percent 
-#'   mediation  effect size for the mediation estimates 
-#' @param paths \code{TRUE} or \code{FALSE} (default), provide the individual 
-#'   estimates of the  paths in the mediation model 
-#' @param label \code{TRUE} (default) or \code{FALSE}, provide insightful 
-#'   labels for all estimates 
-#' @param estPlot \code{TRUE} or \code{FALSE} (default), provide an estimate 
-#'   plot where for each estimator the estimated coefficient and confidence 
-#'   intervals are plotted. 
+#' @param estMethod \code{'standard'} (default), or \code{'bootstrap'}, the
+#'   estimation method to use
+#' @param bootstrap a number between 1 and 100000 (default: 1000) specifying
+#'   the number of  samples that need to been drawn in the bootstrap method
+#' @param test \code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
+#'   values for the mediation estimates
+#' @param ci \code{TRUE} or \code{FALSE} (default), provide a confidence
+#'   interval for the mediation estimates
+#' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the
+#'   confidence interval width that is used as \code{'ci'}
+#' @param pm \code{TRUE} or \code{FALSE} (default), provide the percent
+#'   mediation  effect size for the mediation estimates
+#' @param paths \code{TRUE} or \code{FALSE} (default), provide the individual
+#'   estimates of the  paths in the mediation model
+#' @param label \code{TRUE} (default) or \code{FALSE}, provide insightful
+#'   labels for all estimates
+#' @param estPlot \code{TRUE} or \code{FALSE} (default), provide an estimate
+#'   plot where for each estimator the estimated coefficient and confidence
+#'   intervals are plotted.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$med} \tab \tab \tab \tab \tab a table containing mediation estimates \cr
@@ -388,6 +376,17 @@ med <- function(
     if ( ! requireNamespace('jmvcore'))
         stop('med requires jmvcore to be installed (restart may be required)')
 
+    if ( ! missing(dep)) dep <- jmvcore::resolveQuo(jmvcore::enquo(dep))
+    if ( ! missing(med)) med <- jmvcore::resolveQuo(jmvcore::enquo(med))
+    if ( ! missing(pred)) pred <- jmvcore::resolveQuo(jmvcore::enquo(pred))
+    if (missing(data))
+        data <- jmvcore::marshalData(
+            parent.frame(),
+            `if`( ! missing(dep), dep, NULL),
+            `if`( ! missing(med), med, NULL),
+            `if`( ! missing(pred), pred, NULL))
+
+
     options <- medOptions$new(
         dep = dep,
         med = med,
@@ -401,9 +400,6 @@ med <- function(
         paths = paths,
         label = label,
         estPlot = estPlot)
-
-    results <- medResults$new(
-        options = options)
 
     analysis <- medClass$new(
         options = options,

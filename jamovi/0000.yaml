@@ -1,12 +1,12 @@
 ---
 title: medmod
 name: medmod
-version: 1.0.0
+version: 1.1.0
 jms: '1.0'
 authors:
   - Ravi Selker
 maintainer: Ravi Selker <selker.ravi@gmail.com>
-date: '2017-09-12'
+date: '2019-11-07'
 type: R
 description: |
   This module allows you to do simple mediation and moderation analysis.
