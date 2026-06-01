@@ -50,8 +50,8 @@ medClass <- R6::R6Class(
             table <- self$results$med
 
             table$addRow(1, values = list(effect='Indirect', label='a \u00D7 b'))
-            table$addRow(2, values = list(effect='Direct', label='c'))
-            table$addRow(3, values = list(effect='Total', label='c + a \u00D7 b'))
+            table$addRow(2, values = list(effect='Direct', label='c\''))
+            table$addRow(3, values = list(effect='Total', label='c\' + a \u00D7 b'))
 
             ciWidth <- self$options$ciWidth
             table$getColumn('lower')$setSuperTitle(jmvcore::format('{}% Confidence Interval', ciWidth))
@@ -62,7 +62,7 @@ medClass <- R6::R6Class(
 
             table$setRow(rowNo=1, values=list(var1=self$options$pred, arrow='\U2192', var2=self$options$med, label='a'))
             table$setRow(rowNo=2, values=list(var1=self$options$med, arrow='\U2192', var2=self$options$dep, label='b'))
-            table$setRow(rowNo=3, values=list(var1=self$options$pred, arrow='\U2192', var2=self$options$dep, label='c'))
+            table$setRow(rowNo=3, values=list(var1=self$options$pred, arrow='\U2192', var2=self$options$dep, label='c\''))
 
             ciWidth <- self$options$ciWidth
             table$getColumn('lower')$setSuperTitle(jmvcore::format('{}% Confidence Interval', ciWidth))
@@ -132,7 +132,7 @@ medClass <- R6::R6Class(
 
             df <- data.frame(
                 term = names,
-                lbs = c('a \u00D7 b', 'c', 'c + a \u00D7 b'),
+                lbs = c('a \u00D7 b', 'c\'', 'c\' + a \u00D7 b'),
                 estimate = as.numeric(betas$est),
                 conf.low = as.numeric(betas$ci.lower),
                 conf.high = as.numeric(betas$ci.upper),
