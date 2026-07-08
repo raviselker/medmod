@@ -203,7 +203,7 @@ modClass <- R6::R6Class(
                 ggplot2::geom_abline(
                     data = image$state$coef,
                     ggplot2::aes(slope = slope, intercept = intercept, color = name),
-                    size = 1.2
+                    linewidth = 1.2
                 ) +
                 ggplot2::labs(x = self$options$pred, y = self$options$dep, color = mod) +
                 ggplot2::scale_color_discrete(name = mod) +

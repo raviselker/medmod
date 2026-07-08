@@ -207,7 +207,7 @@ medClass <- R6::R6Class(
                     yintercept = 0,
                     linetype = "dotted",
                     colour = theme$color[1],
-                    size = 1.2
+                    linewidth = 1.2
                 ) +
                 ggplot2::geom_errorbar(
                     ggplot2::aes(
@@ -217,7 +217,7 @@ medClass <- R6::R6Class(
                         width = .2,
                         colour = lbs
                     ),
-                    size = .8
+                    linewidth = .8
                 ) +
                 ggplot2::geom_point(
                     ggplot2::aes(x = term, y = estimate, colour = lbs),
