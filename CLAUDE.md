@@ -37,8 +37,8 @@ jmvtools::install()   # build .jmo and install into a local jamovi
 `air format .` formats R code (config in `air.toml`; generated `*.h.R` files
 are excluded).
 
-renv is initialized (`renv/activate.R` + `.Rprofile`) but has no `renv.lock`
-yet — snapshot one before relying on `renv::restore()`.
+`renv::restore()` bootstraps the dev library from `renv.lock`; the lockfile is
+driven by `DESCRIPTION` (`renv::snapshot(type = "explicit")`).
 
 ## Architecture
 
