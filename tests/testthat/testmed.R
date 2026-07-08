@@ -22,3 +22,21 @@ test_that('mediation works', {
     expect_equal(3.967471e-06, path$p[1], tolerance = 1e-5)
     expect_equal(0.1044457, path$se[3], tolerance = 1e-5)
 })
+
+test_that('estimate plot lines set their width via linewidth', {
+    # GIVEN a mediation analysis with the estimate plot enabled
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+    r <- medmod::med(data, dep = 'Y', pred = 'X', med = 'M', estPlot = TRUE)
+
+    # WHEN the plot is rendered
+    pdf(NULL)
+    on.exit(dev.off())
+    print(r$estPlot)
+    p <- ggplot2::last_plot()
+
+    # THEN the reference line and error bars use the linewidth parameter,
+    # not the deprecated size
+    expect_equal(p$layers[[1]]$aes_params$linewidth, 1.2)
+    expect_equal(p$layers[[2]]$aes_params$linewidth, 0.8)
+})
