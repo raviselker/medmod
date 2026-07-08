@@ -72,7 +72,6 @@ children:
                     suffix: '%'
                     format: number
                     enable: (ci)
-
       - type: LayoutBox
         margin: large
         stretchFactor: 1
@@ -87,3 +86,8 @@ children:
                 name: simpleSlopeEst
               - type: CheckBox
                 name: simpleSlopePlot
+          - type: Label
+            label: Additional Output
+            children:
+              - type: CheckBox
+                name: pathDiagram
