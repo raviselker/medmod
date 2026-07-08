@@ -49,9 +49,15 @@ modClass <- R6::R6Class(
             pred <- self$options$pred
             mod <- self$options$mod
 
-            table$addRow(1, values = list(term = pred))
-            table$addRow(2, values = list(term = mod))
-            table$addRow(3, values = list(term = jmvcore::stringifyTerm(c(pred, mod))))
+            table$addRow(1, values = list(term = pred, label = 'b1'))
+            table$addRow(2, values = list(term = mod, label = 'b2'))
+            table$addRow(
+                3,
+                values = list(
+                    term = jmvcore::stringifyTerm(c(pred, mod)),
+                    label = 'b3'
+                )
+            )
 
             ciWidth <- self$options$ciWidth
             table$getColumn('lower')$setSuperTitle(jmvcore::format(

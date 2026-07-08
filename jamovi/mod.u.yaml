@@ -62,6 +62,8 @@ children:
             label: Estimates
             children:
               - type: CheckBox
+                name: label
+              - type: CheckBox
                 name: test
               - type: CheckBox
                 name: ci

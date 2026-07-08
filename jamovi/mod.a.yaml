@@ -91,6 +91,15 @@ options:
             a number between 1 and 100000 (default: 1000) specifying the number of 
             samples that need to been drawn in the bootstrap method
 
+    - name: label
+      title: Labels
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide the coefficient labels
+            (b1, b2, b3) used in the model and the path diagram
+
     - name: test
       title: Test statistics
       type: Bool

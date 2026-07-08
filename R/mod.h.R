@@ -11,6 +11,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             pred = NULL,
             estMethod = "standard",
             bootstrap = 1000,
+            label = FALSE,
             test = TRUE,
             ci = FALSE,
             ciWidth = 95,
@@ -59,6 +60,10 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 bootstrap,
                 min=1,
                 default=1000)
+            private$..label <- jmvcore::OptionBool$new(
+                "label",
+                label,
+                default=FALSE)
             private$..test <- jmvcore::OptionBool$new(
                 "test",
                 test,
@@ -99,6 +104,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..pred)
             self$.addOption(private$..estMethod)
             self$.addOption(private$..bootstrap)
+            self$.addOption(private$..label)
             self$.addOption(private$..test)
             self$.addOption(private$..ci)
             self$.addOption(private$..ciWidth)
@@ -114,6 +120,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         pred = function() private$..pred$value,
         estMethod = function() private$..estMethod$value,
         bootstrap = function() private$..bootstrap$value,
+        label = function() private$..label$value,
         test = function() private$..test$value,
         ci = function() private$..ci$value,
         ciWidth = function() private$..ciWidth$value,
@@ -128,6 +135,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..pred = NA,
         ..estMethod = NA,
         ..bootstrap = NA,
+        ..label = NA,
         ..test = NA,
         ..ci = NA,
         ..ciWidth = NA,
@@ -168,6 +176,12 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                         `name`="term", 
                         `title`="", 
                         `type`="text"),
+                    list(
+                        `name`="label", 
+                        `title`="Label", 
+                        `type`="text", 
+                        `format`="narrow", 
+                        `visible`="(label)"),
                     list(
                         `name`="est", 
                         `title`="Estimate", 
@@ -340,6 +354,8 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   estimation method to use
 #' @param bootstrap a number between 1 and 100000 (default: 1000) specifying
 #'   the number of  samples that need to been drawn in the bootstrap method
+#' @param label \code{TRUE} or \code{FALSE} (default), provide the coefficient
+#'   labels (b1, b2, b3) used in the model and the path diagram
 #' @param test \code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
 #'   values for the mediation estimates
 #' @param ci \code{TRUE} or \code{FALSE} (default), provide a confidence
@@ -379,6 +395,7 @@ mod <- function(
     pred,
     estMethod = "standard",
     bootstrap = 1000,
+    label = FALSE,
     test = TRUE,
     ci = FALSE,
     ciWidth = 95,
@@ -408,6 +425,7 @@ mod <- function(
         pred = pred,
         estMethod = estMethod,
         bootstrap = bootstrap,
+        label = label,
         test = test,
         ci = ci,
         ciWidth = ciWidth,
