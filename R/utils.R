@@ -9,6 +9,21 @@ center <- function(x) {
     return(centered)
 }
 
+#' Significance stars for p values
+#'
+#' \code{sigStars} converts p values to the conventional significance stars:
+#' \code{*} p < .05, \code{**} p < .01, \code{***} p < .001.
+#'
+#' @param p Numeric vector of p values.
+sigStars <- function(p) {
+    stars <- character(length(p))
+    stars[p < 0.05] <- '*'
+    stars[p < 0.01] <- '**'
+    stars[p < 0.001] <- '***'
+
+    return(stars)
+}
+
 #' Extract parameter rows from lavaan estimates
 #'
 #' \code{lavaanRow} returns the rows of a \code{lavaan::parameterestimates()}
