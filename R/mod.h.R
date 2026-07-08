@@ -181,7 +181,7 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                         `title`="Label", 
                         `type`="text", 
                         `format`="narrow", 
-                        `visible`="(label)"),
+                        `visible`="(label || pathDiagram)"),
                     list(
                         `name`="est", 
                         `title`="Estimate", 
