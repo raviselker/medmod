@@ -3,3 +3,4 @@
 export(med)
 export(mod)
 import(lavaan)
+importFrom(rlang,.data)
