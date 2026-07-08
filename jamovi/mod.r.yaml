@@ -23,7 +23,7 @@ items:
           title: 'Label'
           type: text
           format: narrow
-          visible: (label)
+          visible: (label || pathDiagram)
 
         - name: est
           title: 'Estimate'
