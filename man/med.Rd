@@ -17,7 +17,8 @@ med(
   pm = FALSE,
   paths = FALSE,
   label = FALSE,
-  estPlot = FALSE
+  estPlot = FALSE,
+  pathDiagram = FALSE
 )
 }
 \arguments{
@@ -56,12 +57,17 @@ labels for all estimates}
 \item{estPlot}{\code{TRUE} or \code{FALSE} (default), provide an estimate
 plot where for each estimator the estimated coefficient and confidence
 intervals are plotted.}
+
+\item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a path
+diagram of the mediation model, annotated with the estimated path
+coefficients.}
 }
 \value{
 A results object containing:
 \tabular{llllll}{
   \code{results$med} \tab \tab \tab \tab \tab a table containing mediation estimates \cr
   \code{results$paths} \tab \tab \tab \tab \tab a table containing the individual path estimates \cr
+  \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
   \code{results$estPlot} \tab \tab \tab \tab \tab an image \cr
   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the mediation model \cr
 }

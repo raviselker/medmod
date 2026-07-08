@@ -153,4 +153,13 @@ options:
             `TRUE` or `FALSE` (default), provide an estimate plot where
             for each estimator the estimated coefficient and confidence
             intervals are plotted.
+
+    - name: pathDiagram
+      title: Path diagram
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide a path diagram of the
+            mediation model, annotated with the estimated path coefficients.
 ...

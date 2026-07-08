@@ -17,7 +17,8 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             pm = FALSE,
             paths = FALSE,
             label = FALSE,
-            estPlot = FALSE, ...) {
+            estPlot = FALSE,
+            pathDiagram = FALSE, ...) {
 
             super$initialize(
                 package="medmod",
@@ -88,6 +89,10 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "estPlot",
                 estPlot,
                 default=FALSE)
+            private$..pathDiagram <- jmvcore::OptionBool$new(
+                "pathDiagram",
+                pathDiagram,
+                default=FALSE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..med)
@@ -101,6 +106,7 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..paths)
             self$.addOption(private$..label)
             self$.addOption(private$..estPlot)
+            self$.addOption(private$..pathDiagram)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -114,7 +120,8 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         pm = function() private$..pm$value,
         paths = function() private$..paths$value,
         label = function() private$..label$value,
-        estPlot = function() private$..estPlot$value),
+        estPlot = function() private$..estPlot$value,
+        pathDiagram = function() private$..pathDiagram$value),
     private = list(
         ..dep = NA,
         ..med = NA,
@@ -127,7 +134,8 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..pm = NA,
         ..paths = NA,
         ..label = NA,
-        ..estPlot = NA)
+        ..estPlot = NA,
+        ..pathDiagram = NA)
 )
 
 medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -136,6 +144,7 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     active = list(
         med = function() private$.items[["med"]],
         paths = function() private$.items[["paths"]],
+        pathDiagram = function() private$.items[["pathDiagram"]],
         estPlot = function() private$.items[["estPlot"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
@@ -262,6 +271,19 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                         `visible`="(test)"))))
             self$add(jmvcore::Image$new(
                 options=options,
+                name="pathDiagram",
+                title="Path Diagram",
+                width=500,
+                height=300,
+                renderFun=".pathDiagram",
+                visible="(pathDiagram)",
+                clearWith=list(
+                    "dep",
+                    "pred",
+                    "med",
+                    "estMethod")))
+            self$add(jmvcore::Image$new(
+                options=options,
                 name="estPlot",
                 title="Estimate Plot",
                 width=550,
@@ -347,10 +369,14 @@ medBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param estPlot \code{TRUE} or \code{FALSE} (default), provide an estimate
 #'   plot where for each estimator the estimated coefficient and confidence
 #'   intervals are plotted.
+#' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a path
+#'   diagram of the mediation model, annotated with the estimated path
+#'   coefficients.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$med} \tab \tab \tab \tab \tab a table containing mediation estimates \cr
 #'   \code{results$paths} \tab \tab \tab \tab \tab a table containing the individual path estimates \cr
+#'   \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$estPlot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the mediation model \cr
 #' }
@@ -375,7 +401,8 @@ med <- function(
     pm = FALSE,
     paths = FALSE,
     label = FALSE,
-    estPlot = FALSE) {
+    estPlot = FALSE,
+    pathDiagram = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("med requires jmvcore to be installed (restart may be required)")
@@ -403,7 +430,8 @@ med <- function(
         pm = pm,
         paths = paths,
         label = label,
-        estPlot = estPlot)
+        estPlot = estPlot,
+        pathDiagram = pathDiagram)
 
     analysis <- medClass$new(
         options = options,

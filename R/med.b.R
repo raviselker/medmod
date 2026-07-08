@@ -25,6 +25,7 @@ medClass <- R6::R6Class(
 
                 private$.populateMedTable(results)
                 private$.populatePathsTable(results)
+                private$.preparePathDiagram(results)
                 private$.prepareEstPlot(results)
             }
         },
@@ -154,6 +155,56 @@ medClass <- R6::R6Class(
         },
 
         #### Plot functions ----
+        .preparePathDiagram = function(results) {
+            image <- self$results$pathDiagram
+            est <- lavaan::parameterestimates(results$fit)
+
+            pathA <- lavaanRow(est, label = 'a')
+            pathB <- lavaanRow(est, label = 'b')
+            pathC <- lavaanRow(est, label = 'c')
+
+            nodes <- data.frame(
+                name = c('pred', 'med', 'dep'),
+                label = shortenLabel(c(
+                    self$options$pred,
+                    self$options$med,
+                    self$options$dep
+                )),
+                x = c(1.5, 5, 8.5),
+                y = c(1, 5, 1)
+            )
+
+            # the diagonals anchor on the box faces, offset from the mediator's
+            # center so the a and b arrows don't meet in one point
+            edges <- data.frame(
+                from = c('pred', 'med', 'pred'),
+                to = c(NA, NA, 'dep'),
+                fromX = c(2.4, 5.85, NA),
+                fromY = c(1.62, 4.38, NA),
+                toX = c(4.15, 7.6, NA),
+                toY = c(4.38, 1.62, NA),
+                label = c(
+                    pathLabel('a', pathA$est, pathA$pvalue),
+                    pathLabel('b', pathB$est, pathB$pvalue),
+                    pathLabel("c'", pathC$est, pathC$pvalue)
+                ),
+                nudgeX = c(-0.85, 0.85, 0),
+                nudgeY = c(0.15, 0.15, -0.35)
+            )
+
+            image$setState(list(nodes = nodes, edges = edges))
+        },
+        .pathDiagram = function(image, ggtheme, theme, ...) {
+            if (is.null(image$state)) {
+                return(FALSE)
+            }
+
+            p <- drawPathDiagram(image$state$nodes, image$state$edges, ggtheme, theme)
+
+            print(p)
+
+            TRUE
+        },
         .prepareEstPlot = function(results) {
             image <- self$results$estPlot
             est <- lavaan::parameterestimates(
