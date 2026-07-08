@@ -23,3 +23,15 @@ test_that('moderation works', {
     expect_equal(0.5417532, ss$se[2], tolerance = 1e-5)
     expect_equal(5.249576, ss$est[3], tolerance = 1e-5)
 })
+
+test_that('mod model syntax labels the simple slopes section', {
+    # GIVEN any configured moderation analysis
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+
+    # WHEN the analysis is run
+    r <- medmod::mod(data, dep = 'Y', pred = 'X', mod = 'M')
+
+    # THEN the displayed model syntax has a header for the simple slope definitions
+    expect_match(r$modelSyntax, '# Simple slopes')
+})

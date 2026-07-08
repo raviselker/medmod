@@ -191,7 +191,6 @@ modClass <- R6::R6Class(
                 legend.key = ggplot2::element_blank()
             )
 
-            errorType <- paste0(self$options$ciWidth, '% CI')
             dep <- jmvcore::toB64(self$options$dep)
             pred <- jmvcore::toB64(self$options$pred)
             mod <- self$options$mod
@@ -251,16 +250,12 @@ modClass <- R6::R6Class(
             simp2 <- 'mean := b1 + b3*(modMean)\n'
             simp3 <- 'sdAbove := b1 + b3*(modMean + sqrt(modVar))\n'
 
-            reg1 <- paste0(dep, " ~ b1*", pred, "\n")
-            reg2 <- paste0(dep, " ~ b2*", mod, "\n")
-            reg3 <- paste0(dep, " ~ b3*", pred, mod, "\n\n")
-
             reg <- paste0(dep, " ~ b0*1 + b1*", pred, " + b2*", mod, " + b3*", pred, mod, "\n\n")
 
             mean <- paste0(mod, " ~ modMean*1\n\n")
             var <- paste0(mod, " ~~ modVar*", mod, "\n\n")
 
-            model <- paste0(head1, reg, head2, mean, head3, var, simp1, simp2, simp3)
+            model <- paste0(head1, reg, head2, mean, head3, var, head4, simp1, simp2, simp3)
 
             return(model)
         }
