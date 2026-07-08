@@ -115,8 +115,7 @@ medClass <- R6::R6Class(
 
             labels <- c('ab', 'c', 'total')
             for (i in seq_along(labels)) {
-                index <- which(est$label == labels[i])
-                r <- est[index, ]
+                r <- lavaanRow(est, label = labels[i])
 
                 row <- list()
                 row[['est']] <- r$est
@@ -140,8 +139,7 @@ medClass <- R6::R6Class(
 
             labels <- c('a', 'b', 'c')
             for (i in seq_along(labels)) {
-                index <- which(est$label == labels[i])
-                r <- est[index, ]
+                r <- lavaanRow(est, label = labels[i])
 
                 row <- list()
                 row[['est']] <- r$est
@@ -167,12 +165,10 @@ medClass <- R6::R6Class(
             labels <- c('ab', 'c', 'total')
             names <- c('Indirect', 'Direct', 'Total')
 
-            indices <- numeric(3)
-            for (i in seq_along(labels)) {
-                indices[i] <- which(est$label == labels[i])
-            }
-
-            betas <- est[indices, ]
+            betas <- do.call(
+                rbind,
+                lapply(labels, function(label) lavaanRow(est, label = label))
+            )
 
             df <- data.frame(
                 term = names,

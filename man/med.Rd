@@ -4,9 +4,21 @@
 \alias{med}
 \title{Mediation}
 \usage{
-med(data, dep, med, pred, estMethod = "standard", bootstrap = 1000,
-  test = TRUE, ci = FALSE, ciWidth = 95, pm = FALSE, paths = FALSE,
-  label = FALSE, estPlot = FALSE)
+med(
+  data,
+  dep,
+  med,
+  pred,
+  estMethod = "standard",
+  bootstrap = 1000,
+  test = TRUE,
+  ci = FALSE,
+  ciWidth = 95,
+  pm = FALSE,
+  paths = FALSE,
+  label = FALSE,
+  estPlot = FALSE
+)
 }
 \arguments{
 \item{data}{the data as a data frame}
@@ -17,32 +29,32 @@ med(data, dep, med, pred, estMethod = "standard", bootstrap = 1000,
 
 \item{pred}{a string naming the predictor variable}
 
-\item{estMethod}{\code{'standard'} (default), or \code{'bootstrap'}, the 
+\item{estMethod}{\code{'standard'} (default), or \code{'bootstrap'}, the
 estimation method to use}
 
-\item{bootstrap}{a number between 1 and 100000 (default: 1000) specifying 
+\item{bootstrap}{a number between 1 and 100000 (default: 1000) specifying
 the number of  samples that need to been drawn in the bootstrap method}
 
-\item{test}{\code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p' 
+\item{test}{\code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
 values for the mediation estimates}
 
-\item{ci}{\code{TRUE} or \code{FALSE} (default), provide a confidence 
+\item{ci}{\code{TRUE} or \code{FALSE} (default), provide a confidence
 interval for the mediation estimates}
 
-\item{ciWidth}{a number between 50 and 99.9 (default: 95) specifying the 
+\item{ciWidth}{a number between 50 and 99.9 (default: 95) specifying the
 confidence interval width that is used as \code{'ci'}}
 
-\item{pm}{\code{TRUE} or \code{FALSE} (default), provide the percent 
+\item{pm}{\code{TRUE} or \code{FALSE} (default), provide the percent
 mediation  effect size for the mediation estimates}
 
-\item{paths}{\code{TRUE} or \code{FALSE} (default), provide the individual 
+\item{paths}{\code{TRUE} or \code{FALSE} (default), provide the individual
 estimates of the  paths in the mediation model}
 
-\item{label}{\code{TRUE} (default) or \code{FALSE}, provide insightful 
+\item{label}{\code{TRUE} (default) or \code{FALSE}, provide insightful
 labels for all estimates}
 
-\item{estPlot}{\code{TRUE} or \code{FALSE} (default), provide an estimate 
-plot where for each estimator the estimated coefficient and confidence 
+\item{estPlot}{\code{TRUE} or \code{FALSE} (default), provide an estimate
+plot where for each estimator the estimated coefficient and confidence
 intervals are plotted.}
 }
 \value{
@@ -73,15 +85,15 @@ dat <- data.frame(X=X, M=M, Y=Y)
 med(dat, dep = "Y", pred = "X", med = "M")
 
 #
-#  Mediation Estimates                                   
-#  ----------------------------------------------------- 
-#    Effect      Estimate    SE        Z        p        
-#  ----------------------------------------------------- 
-#    Indirect      0.3736    0.0920    4.059    < .001   
-#    Direct        0.0364    0.1044    0.348     0.728   
-#    Total         0.4100    0.1247    3.287     0.001   
-#  ----------------------------------------------------- 
-# 
+#  Mediation Estimates
+#  -----------------------------------------------------
+#    Effect      Estimate    SE        Z        p
+#  -----------------------------------------------------
+#    Indirect      0.3736    0.0920    4.059    < .001
+#    Direct        0.0364    0.1044    0.348     0.728
+#    Total         0.4100    0.1247    3.287     0.001
+#  -----------------------------------------------------
+#
 #
 
 }

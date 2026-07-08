@@ -4,9 +4,19 @@
 \alias{mod}
 \title{Moderation}
 \usage{
-mod(data, dep, mod, pred, estMethod = "standard", bootstrap = 1000,
-  test = TRUE, ci = FALSE, ciWidth = 95, simpleSlopeEst = FALSE,
-  simpleSlopePlot = FALSE)
+mod(
+  data,
+  dep,
+  mod,
+  pred,
+  estMethod = "standard",
+  bootstrap = 1000,
+  test = TRUE,
+  ci = FALSE,
+  ciWidth = 95,
+  simpleSlopeEst = FALSE,
+  simpleSlopePlot = FALSE
+)
 }
 \arguments{
 \item{data}{the data as a data frame}
@@ -17,25 +27,25 @@ mod(data, dep, mod, pred, estMethod = "standard", bootstrap = 1000,
 
 \item{pred}{a string naming the predictor variable}
 
-\item{estMethod}{\code{'standard'} (default), or \code{'bootstrap'}, the 
+\item{estMethod}{\code{'standard'} (default), or \code{'bootstrap'}, the
 estimation method to use}
 
-\item{bootstrap}{a number between 1 and 100000 (default: 1000) specifying 
+\item{bootstrap}{a number between 1 and 100000 (default: 1000) specifying
 the number of  samples that need to been drawn in the bootstrap method}
 
-\item{test}{\code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p' 
+\item{test}{\code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
 values for the mediation estimates}
 
-\item{ci}{\code{TRUE} or \code{FALSE} (default), provide a confidence 
+\item{ci}{\code{TRUE} or \code{FALSE} (default), provide a confidence
 interval for the mediation estimates}
 
-\item{ciWidth}{a number between 50 and 99.9 (default: 95) specifying the 
+\item{ciWidth}{a number between 50 and 99.9 (default: 95) specifying the
 confidence interval width that is used as \code{'ci'}}
 
-\item{simpleSlopeEst}{\code{TRUE} or \code{FALSE} (default), provide the 
+\item{simpleSlopeEst}{\code{TRUE} or \code{FALSE} (default), provide the
 estimates of the simple slopes.}
 
-\item{simpleSlopePlot}{\code{TRUE} or \code{FALSE} (default), provide a 
+\item{simpleSlopePlot}{\code{TRUE} or \code{FALSE} (default), provide a
 plot of the simple slopes.}
 }
 \value{
@@ -62,20 +72,20 @@ X <- rnorm(100)
 M <- rnorm(100)
 X_M <- X*M
 Y <- 0.7*X + 0.1*M + 4.2*X_M + rnorm(100)
-dat <- data.frame(X=X, M=M, Y=Y)   
+dat <- data.frame(X=X, M=M, Y=Y)
 
 mod(dat, dep = "Y", pred = "X", mod = "M")
 
 #
-#  Moderation Estimates                               
-#  -------------------------------------------------- 
-#             Estimate    SE        Z        p        
-#  -------------------------------------------------- 
-#    X           0.951    0.0965     9.86    < .001   
-#    M          -0.471    0.0923    -5.10    < .001   
-#    X:M         4.185    0.1009    41.50    < .001   
-#  -------------------------------------------------- 
-# 
-# 
+#  Moderation Estimates
+#  --------------------------------------------------
+#             Estimate    SE        Z        p
+#  --------------------------------------------------
+#    X           0.951    0.0965     9.86    < .001
+#    M          -0.471    0.0923    -5.10    < .001
+#    X:M         4.185    0.1009    41.50    < .001
+#  --------------------------------------------------
+#
+#
 
 }

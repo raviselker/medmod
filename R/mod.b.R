@@ -106,8 +106,7 @@ modClass <- R6::R6Class(
 
             labels <- c(pred, mod, int)
             for (i in seq_along(labels)) {
-                index <- which(est$lhs == dep & est$rhs == labels[i])
-                r <- est[index, ]
+                r <- lavaanRow(est, lhs = dep, rhs = labels[i])
 
                 row <- list()
                 row[['est']] <- r$est
@@ -130,8 +129,7 @@ modClass <- R6::R6Class(
 
             labels <- c('mean', 'sdBelow', 'sdAbove')
             for (i in seq_along(labels)) {
-                index <- which(est$lhs == labels[i])
-                r <- est[index, ]
+                r <- lavaanRow(est, lhs = labels[i])
 
                 row <- list()
                 row[['est']] <- r$est
@@ -159,14 +157,12 @@ modClass <- R6::R6Class(
             labels <- c('mean', 'sdBelow', 'sdAbove')
             names <- c('Average', 'Low (-1SD)', 'High (+1SD)')
 
-            indices <- numeric(3)
-            for (i in seq_along(labels)) {
-                indices[i] <- which(est$lhs == labels[i])
-            }
+            intercept <- lavaanRow(est, label = 'b0')
 
-            intercept <- est[which(est$label == 'b0'), ]
-
-            betas <- est[indices, ]
+            betas <- do.call(
+                rbind,
+                lapply(labels, function(label) lavaanRow(est, lhs = label))
+            )
 
             coef <- data.frame(
                 term = factor(labels, levels = labels),
