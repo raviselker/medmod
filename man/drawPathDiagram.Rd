@@ -26,3 +26,4 @@ box borders by default; non-\code{NA} \code{fromX}/\code{fromY} and
 Arrows run between box borders; an edge whose \code{to} is not a node name
 ends at its explicit \code{toX}/\code{toY} point (used to point at a path).
 }
+\keyword{internal}

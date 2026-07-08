@@ -3,6 +3,7 @@
 #' \code{center} returns a numeric vector with centered values.
 #'
 #' @param x Numeric vector.
+#' @keywords internal
 center <- function(x) {
     centered <- as.vector(scale(x = x, center = TRUE, scale = FALSE))
 
@@ -15,6 +16,7 @@ center <- function(x) {
 #' \code{*} p < .05, \code{**} p < .01, \code{***} p < .001.
 #'
 #' @param p Numeric vector of p values.
+#' @keywords internal
 sigStars <- function(p) {
     stars <- character(length(p))
     stars[p < 0.05] <- '*'
@@ -31,6 +33,7 @@ sigStars <- function(p) {
 #'
 #' @param x Character vector of labels.
 #' @param n Maximum number of characters.
+#' @keywords internal
 shortenLabel <- function(x, n = 16) {
     long <- nchar(x) > n
     x[long] <- paste0(substr(x[long], 1, n - 1), '\u2026')
@@ -48,6 +51,7 @@ shortenLabel <- function(x, n = 16) {
 #' @param p The p value, converted to significance stars.
 #' @param showEst Whether to include the estimate.
 #' @param showSig Whether to include the significance stars.
+#' @keywords internal
 pathLabel <- function(name, est, p, showEst = TRUE, showSig = TRUE) {
     label <- name
     if (showEst) {
@@ -75,6 +79,7 @@ pathLabel <- function(name, est, p, showEst = TRUE, showSig = TRUE) {
 #' @param ggtheme The jamovi ggplot2 theme.
 #' @param theme The jamovi theme colors.
 #' @param sigCaption Whether to caption the significance star cutoffs.
+#' @keywords internal
 drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
     halfW <- 1.55
     halfH <- 0.55
@@ -199,6 +204,7 @@ drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
 #' @param est Data frame of parameter estimates.
 #' @param ... Named values; each name is a column of \code{est} that must
 #'   equal the value.
+#' @keywords internal
 lavaanRow <- function(est, ...) {
     conditions <- list(...)
 

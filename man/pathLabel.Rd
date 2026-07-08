@@ -21,3 +21,4 @@ pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
 \code{pathLabel} builds the arrow annotation for a path diagram, e.g.
 \code{"a = 0.42***"}.
 }
+\keyword{internal}
