@@ -11,6 +11,7 @@ mod(
   pred,
   estMethod = "standard",
   bootstrap = 1000,
+  label = FALSE,
   test = TRUE,
   ci = FALSE,
   ciWidth = 95,
@@ -35,6 +36,9 @@ estimation method to use}
 
 \item{bootstrap}{a number between 1 and 100000 (default: 1000) specifying
 the number of  samples that need to been drawn in the bootstrap method}
+
+\item{label}{\code{TRUE} or \code{FALSE} (default), provide the coefficient
+labels (b1, b2, b3) used in the model and the path diagram}
 
 \item{test}{\code{TRUE} (default) or \code{FALSE}, provide 'Z' and 'p'
 values for the mediation estimates}

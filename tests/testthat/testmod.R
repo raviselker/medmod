@@ -24,6 +24,18 @@ test_that('moderation works', {
     expect_equal(5.249576, ss$est[3], tolerance = 1e-5)
 })
 
+test_that('mod table labels the coefficients used in the model', {
+    # GIVEN a moderation analysis with labels enabled
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+
+    # WHEN the analysis is run
+    r <- medmod::mod(data, dep = 'Y', pred = 'X', mod = 'M', label = TRUE)
+
+    # THEN each term shows its coefficient label, matching the path diagram
+    expect_equal(as.character(r$mod$asDF$label), c('b1', 'b2', 'b3'))
+})
+
 test_that('path diagram renders', {
     # GIVEN a moderation analysis with the path diagram enabled
     set.seed(1)

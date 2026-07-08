@@ -19,6 +19,12 @@ items:
           title: ''
           type: text
 
+        - name: label
+          title: 'Label'
+          type: text
+          format: narrow
+          visible: (label)
+
         - name: est
           title: 'Estimate'
           type: number
