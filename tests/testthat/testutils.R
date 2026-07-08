@@ -22,6 +22,17 @@ test_that('lavaanRow combines multiple conditions', {
     expect_equal(r$est, 2)
 })
 
+test_that('sigStars maps p values to significance stars', {
+    # GIVEN p values on each side of the conventional cutoffs
+    p <- c(0.2, 0.05, 0.049, 0.01, 0.009, 0.001, 0.0009)
+
+    # WHEN they are converted to stars
+    stars <- sigStars(p)
+
+    # THEN each cutoff adds a star
+    expect_equal(stars, c('', '', '*', '*', '**', '**', '***'))
+})
+
 test_that('lavaanRow errors informatively when the parameter is missing', {
     # GIVEN a parameter estimates data frame without the requested label
     est <- data.frame(label = c('a', 'b'), est = 1:2)
