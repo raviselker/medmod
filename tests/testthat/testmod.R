@@ -24,6 +24,23 @@ test_that('moderation works', {
     expect_equal(5.249576, ss$est[3], tolerance = 1e-5)
 })
 
+test_that('simple slope plot maps the centered data', {
+    # GIVEN a moderation analysis with the simple slope plot enabled
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+    r <- medmod::mod(data, dep = 'Y', pred = 'X', mod = 'M', simpleSlopePlot = TRUE)
+
+    # WHEN the plot is rendered
+    pdf(NULL)
+    on.exit(dev.off())
+    print(r$simpleSlope$plot)
+    built <- ggplot2::ggplot_build(ggplot2::last_plot())
+
+    # THEN the scatter layer plots the mean-centered predictor and dependent
+    expect_equal(built$data[[1]]$x, as.numeric(scale(data$X, scale = FALSE)))
+    expect_equal(built$data[[1]]$y, as.numeric(scale(data$Y, scale = FALSE)))
+})
+
 test_that('mod model syntax labels the simple slopes section', {
     # GIVEN any configured moderation analysis
     set.seed(1)

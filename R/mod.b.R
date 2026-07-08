@@ -195,7 +195,10 @@ modClass <- R6::R6Class(
             pred <- jmvcore::toB64(self$options$pred)
             mod <- self$options$mod
 
-            p <- ggplot2::ggplot(data = image$state$data, ggplot2::aes_string(x = pred, y = dep)) +
+            p <- ggplot2::ggplot(
+                data = image$state$data,
+                ggplot2::aes(x = .data[[pred]], y = .data[[dep]])
+            ) +
                 ggplot2::geom_point(color = theme$color[1], alpha = 0.3) +
                 ggplot2::geom_abline(
                     data = image$state$coef,

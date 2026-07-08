@@ -16,13 +16,14 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.2)
-Imports: 
-    jmvcore (>= 1.0.0), 
-    R6, 
-    lavaan, 
-    ggplot2
+Imports:
+    jmvcore (>= 1.0.0),
+    R6,
+    lavaan,
+    ggplot2,
+    rlang
 Suggests: 
     testthat
-RoxygenNote: 6.0.1
 URL: https://github.com/raviselker/medmod
 BugReports: https://github.com/raviselker/medmod/issues
+Config/roxygen2/version: 8.0.0
