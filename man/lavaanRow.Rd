@@ -19,3 +19,4 @@ data frame whose columns equal the given values, e.g.
 rhs = pred)}. It errors when the expected parameter is absent instead of
 silently returning zero rows.
 }
+\keyword{internal}

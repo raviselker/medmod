@@ -15,3 +15,4 @@ shortenLabel(x, n = 16)
 \code{shortenLabel} truncates long labels with an ellipsis so they fit
 inside path diagram boxes.
 }
+\keyword{internal}

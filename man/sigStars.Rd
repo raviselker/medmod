@@ -13,3 +13,4 @@ sigStars(p)
 \code{sigStars} converts p values to the conventional significance stars:
 \code{*} p < .05, \code{**} p < .01, \code{***} p < .001.
 }
+\keyword{internal}

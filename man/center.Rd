@@ -12,3 +12,4 @@ center(x)
 \description{
 \code{center} returns a numeric vector with centered values.
 }
+\keyword{internal}
