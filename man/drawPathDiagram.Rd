@@ -4,18 +4,22 @@
 \alias{drawPathDiagram}
 \title{Draw a path diagram}
 \usage{
-drawPathDiagram(nodes, edges, ggtheme, theme)
+drawPathDiagram(nodes, edges, ggtheme, theme, sigCaption = TRUE)
 }
 \arguments{
 \item{nodes}{Data frame with \code{name}, \code{label}, \code{x}, \code{y}.}
 
 \item{edges}{Data frame with \code{from}, \code{to}, \code{toX},
-\code{toY}, \code{label}, \code{nudgeX}, \code{nudgeY} (label offset
-from the arrow midpoint).}
+\code{toY}, \code{fromX}, \code{fromY}, \code{label}, \code{nudgeX},
+\code{nudgeY} (label offset from the arrow midpoint). Arrows run between
+box borders by default; non-\code{NA} \code{fromX}/\code{fromY} and
+\code{toX}/\code{toY} override the anchor points.}
 
 \item{ggtheme}{The jamovi ggplot2 theme.}
 
 \item{theme}{The jamovi theme colors.}
+
+\item{sigCaption}{Whether to caption the significance star cutoffs.}
 }
 \description{
 \code{drawPathDiagram} renders boxes and labelled arrows as a ggplot.

@@ -4,7 +4,7 @@
 \alias{pathLabel}
 \title{Format a path coefficient annotation}
 \usage{
-pathLabel(name, est, p)
+pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
 }
 \arguments{
 \item{name}{Path name (e.g. \code{'a'}).}
@@ -12,6 +12,10 @@ pathLabel(name, est, p)
 \item{est}{Estimated coefficient.}
 
 \item{p}{The p value, converted to significance stars.}
+
+\item{showEst}{Whether to include the estimate.}
+
+\item{showSig}{Whether to include the significance stars.}
 }
 \description{
 \code{pathLabel} builds the arrow annotation for a path diagram, e.g.

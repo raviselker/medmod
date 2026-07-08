@@ -15,6 +15,8 @@ mod(
   ci = FALSE,
   ciWidth = 95,
   pathDiagram = FALSE,
+  pathDiagramEst = TRUE,
+  pathDiagramSig = TRUE,
   simpleSlopeEst = FALSE,
   simpleSlopePlot = FALSE
 )
@@ -44,8 +46,13 @@ interval for the mediation estimates}
 confidence interval width that is used as \code{'ci'}}
 
 \item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a
-conceptual path diagram of the moderation model, annotated with the
-estimated coefficients.}
+conceptual path diagram of the moderation model.}
+
+\item{pathDiagramEst}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with the estimated coefficients.}
+
+\item{pathDiagramSig}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with significance stars.}
 
 \item{simpleSlopeEst}{\code{TRUE} or \code{FALSE} (default), provide the
 estimates of the simple slopes.}

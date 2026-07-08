@@ -18,7 +18,9 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             paths = FALSE,
             label = FALSE,
             estPlot = FALSE,
-            pathDiagram = FALSE, ...) {
+            pathDiagram = FALSE,
+            pathDiagramEst = TRUE,
+            pathDiagramSig = TRUE, ...) {
 
             super$initialize(
                 package="medmod",
@@ -93,6 +95,14 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "pathDiagram",
                 pathDiagram,
                 default=FALSE)
+            private$..pathDiagramEst <- jmvcore::OptionBool$new(
+                "pathDiagramEst",
+                pathDiagramEst,
+                default=TRUE)
+            private$..pathDiagramSig <- jmvcore::OptionBool$new(
+                "pathDiagramSig",
+                pathDiagramSig,
+                default=TRUE)
 
             self$.addOption(private$..dep)
             self$.addOption(private$..med)
@@ -107,6 +117,8 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..label)
             self$.addOption(private$..estPlot)
             self$.addOption(private$..pathDiagram)
+            self$.addOption(private$..pathDiagramEst)
+            self$.addOption(private$..pathDiagramSig)
         }),
     active = list(
         dep = function() private$..dep$value,
@@ -121,7 +133,9 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         paths = function() private$..paths$value,
         label = function() private$..label$value,
         estPlot = function() private$..estPlot$value,
-        pathDiagram = function() private$..pathDiagram$value),
+        pathDiagram = function() private$..pathDiagram$value,
+        pathDiagramEst = function() private$..pathDiagramEst$value,
+        pathDiagramSig = function() private$..pathDiagramSig$value),
     private = list(
         ..dep = NA,
         ..med = NA,
@@ -135,7 +149,9 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..paths = NA,
         ..label = NA,
         ..estPlot = NA,
-        ..pathDiagram = NA)
+        ..pathDiagram = NA,
+        ..pathDiagramEst = NA,
+        ..pathDiagramSig = NA)
 )
 
 medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -280,6 +296,8 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 clearWith=list(
                     "dep",
                     "pred",
+                    "pathDiagramEst",
+                    "pathDiagramSig",
                     "med",
                     "estMethod")))
             self$add(jmvcore::Image$new(
@@ -370,8 +388,11 @@ medBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   plot where for each estimator the estimated coefficient and confidence
 #'   intervals are plotted.
 #' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a path
-#'   diagram of the mediation model, annotated with the estimated path
-#'   coefficients.
+#'   diagram of the mediation model.
+#' @param pathDiagramEst \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with the estimated coefficients.
+#' @param pathDiagramSig \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with significance stars.
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$med} \tab \tab \tab \tab \tab a table containing mediation estimates \cr
@@ -402,7 +423,9 @@ med <- function(
     paths = FALSE,
     label = FALSE,
     estPlot = FALSE,
-    pathDiagram = FALSE) {
+    pathDiagram = FALSE,
+    pathDiagramEst = TRUE,
+    pathDiagramSig = TRUE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("med requires jmvcore to be installed (restart may be required)")
@@ -431,7 +454,9 @@ med <- function(
         paths = paths,
         label = label,
         estPlot = estPlot,
-        pathDiagram = pathDiagram)
+        pathDiagram = pathDiagram,
+        pathDiagramEst = pathDiagramEst,
+        pathDiagramSig = pathDiagramSig)
 
     analysis <- medClass$new(
         options = options,

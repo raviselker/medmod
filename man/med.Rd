@@ -18,7 +18,9 @@ med(
   paths = FALSE,
   label = FALSE,
   estPlot = FALSE,
-  pathDiagram = FALSE
+  pathDiagram = FALSE,
+  pathDiagramEst = TRUE,
+  pathDiagramSig = TRUE
 )
 }
 \arguments{
@@ -59,8 +61,13 @@ plot where for each estimator the estimated coefficient and confidence
 intervals are plotted.}
 
 \item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a path
-diagram of the mediation model, annotated with the estimated path
-coefficients.}
+diagram of the mediation model.}
+
+\item{pathDiagramEst}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with the estimated coefficients.}
+
+\item{pathDiagramSig}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with significance stars.}
 }
 \value{
 A results object containing:

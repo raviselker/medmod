@@ -91,3 +91,10 @@ children:
             children:
               - type: CheckBox
                 name: pathDiagram
+                children:
+                  - type: CheckBox
+                    name: pathDiagramEst
+                    enable: (pathDiagram)
+                  - type: CheckBox
+                    name: pathDiagramSig
+                    enable: (pathDiagram)
