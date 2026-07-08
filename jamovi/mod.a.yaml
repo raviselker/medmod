@@ -127,8 +127,25 @@ options:
       description:
           R: >
             `TRUE` or `FALSE` (default), provide a conceptual path diagram
-            of the moderation model, annotated with the estimated
-            coefficients.
+            of the moderation model.
+
+    - name: pathDiagramEst
+      title: Estimates
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, annotate the path diagram arrows
+            with the estimated coefficients.
+
+    - name: pathDiagramSig
+      title: Significance
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, annotate the path diagram arrows
+            with significance stars.
 
     - name: simpleSlopeEst
       title: Estimates

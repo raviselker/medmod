@@ -158,6 +158,8 @@ medClass <- R6::R6Class(
         .preparePathDiagram = function(results) {
             image <- self$results$pathDiagram
             est <- lavaan::parameterestimates(results$fit)
+            showEst <- self$options$pathDiagramEst
+            showSig <- self$options$pathDiagramSig
 
             pathA <- lavaanRow(est, label = 'a')
             pathB <- lavaanRow(est, label = 'b')
@@ -184,9 +186,9 @@ medClass <- R6::R6Class(
                 toX = c(4.15, 7.6, NA),
                 toY = c(4.38, 1.62, NA),
                 label = c(
-                    pathLabel('a', pathA$est, pathA$pvalue),
-                    pathLabel('b', pathB$est, pathB$pvalue),
-                    pathLabel("c'", pathC$est, pathC$pvalue)
+                    pathLabel('a', pathA$est, pathA$pvalue, showEst, showSig),
+                    pathLabel('b', pathB$est, pathB$pvalue, showEst, showSig),
+                    pathLabel("c'", pathC$est, pathC$pvalue, showEst, showSig)
                 ),
                 nudgeX = c(-0.85, 0.85, 0),
                 nudgeY = c(0.15, 0.15, -0.35)
@@ -199,7 +201,13 @@ medClass <- R6::R6Class(
                 return(FALSE)
             }
 
-            p <- drawPathDiagram(image$state$nodes, image$state$edges, ggtheme, theme)
+            p <- drawPathDiagram(
+                image$state$nodes,
+                image$state$edges,
+                ggtheme,
+                theme,
+                sigCaption = self$options$pathDiagramSig
+            )
 
             print(p)
 

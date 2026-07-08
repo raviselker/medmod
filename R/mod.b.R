@@ -151,6 +151,8 @@ modClass <- R6::R6Class(
 
             b1 <- lavaanRow(est, label = 'b1')
             b3 <- lavaanRow(est, label = 'b3')
+            showEst <- self$options$pathDiagramEst
+            showSig <- self$options$pathDiagramSig
 
             nodes <- data.frame(
                 name = c('pred', 'dep', 'mod'),
@@ -174,8 +176,8 @@ modClass <- R6::R6Class(
                 toX = c(NA, 5),
                 toY = c(NA, 1.15),
                 label = c(
-                    pathLabel('b1', b1$est, b1$pvalue),
-                    pathLabel('b3', b3$est, b3$pvalue)
+                    pathLabel('b1', b1$est, b1$pvalue, showEst, showSig),
+                    pathLabel('b3', b3$est, b3$pvalue, showEst, showSig)
                 ),
                 nudgeX = c(-0.9, 1.05),
                 nudgeY = c(-0.4, 0)
@@ -188,7 +190,13 @@ modClass <- R6::R6Class(
                 return(FALSE)
             }
 
-            p <- drawPathDiagram(image$state$nodes, image$state$edges, ggtheme, theme)
+            p <- drawPathDiagram(
+                image$state$nodes,
+                image$state$edges,
+                ggtheme,
+                theme,
+                sigCaption = self$options$pathDiagramSig
+            )
 
             print(p)
 

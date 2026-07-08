@@ -15,6 +15,8 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             ci = FALSE,
             ciWidth = 95,
             pathDiagram = FALSE,
+            pathDiagramEst = TRUE,
+            pathDiagramSig = TRUE,
             simpleSlopeEst = FALSE,
             simpleSlopePlot = FALSE, ...) {
 
@@ -75,6 +77,14 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "pathDiagram",
                 pathDiagram,
                 default=FALSE)
+            private$..pathDiagramEst <- jmvcore::OptionBool$new(
+                "pathDiagramEst",
+                pathDiagramEst,
+                default=TRUE)
+            private$..pathDiagramSig <- jmvcore::OptionBool$new(
+                "pathDiagramSig",
+                pathDiagramSig,
+                default=TRUE)
             private$..simpleSlopeEst <- jmvcore::OptionBool$new(
                 "simpleSlopeEst",
                 simpleSlopeEst,
@@ -93,6 +103,8 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..ci)
             self$.addOption(private$..ciWidth)
             self$.addOption(private$..pathDiagram)
+            self$.addOption(private$..pathDiagramEst)
+            self$.addOption(private$..pathDiagramSig)
             self$.addOption(private$..simpleSlopeEst)
             self$.addOption(private$..simpleSlopePlot)
         }),
@@ -106,6 +118,8 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ci = function() private$..ci$value,
         ciWidth = function() private$..ciWidth$value,
         pathDiagram = function() private$..pathDiagram$value,
+        pathDiagramEst = function() private$..pathDiagramEst$value,
+        pathDiagramSig = function() private$..pathDiagramSig$value,
         simpleSlopeEst = function() private$..simpleSlopeEst$value,
         simpleSlopePlot = function() private$..simpleSlopePlot$value),
     private = list(
@@ -118,6 +132,8 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..ci = NA,
         ..ciWidth = NA,
         ..pathDiagram = NA,
+        ..pathDiagramEst = NA,
+        ..pathDiagramSig = NA,
         ..simpleSlopeEst = NA,
         ..simpleSlopePlot = NA)
 )
@@ -192,6 +208,8 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 clearWith=list(
                     "dep",
                     "pred",
+                    "pathDiagramEst",
+                    "pathDiagramSig",
                     "mod",
                     "estMethod")))
             self$add(R6::R6Class(
@@ -329,8 +347,11 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the
 #'   confidence interval width that is used as \code{'ci'}
 #' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a
-#'   conceptual path diagram of the moderation model, annotated with the
-#'   estimated coefficients.
+#'   conceptual path diagram of the moderation model.
+#' @param pathDiagramEst \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with the estimated coefficients.
+#' @param pathDiagramSig \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with significance stars.
 #' @param simpleSlopeEst \code{TRUE} or \code{FALSE} (default), provide the
 #'   estimates of the simple slopes.
 #' @param simpleSlopePlot \code{TRUE} or \code{FALSE} (default), provide a
@@ -362,6 +383,8 @@ mod <- function(
     ci = FALSE,
     ciWidth = 95,
     pathDiagram = FALSE,
+    pathDiagramEst = TRUE,
+    pathDiagramSig = TRUE,
     simpleSlopeEst = FALSE,
     simpleSlopePlot = FALSE) {
 
@@ -389,6 +412,8 @@ mod <- function(
         ci = ci,
         ciWidth = ciWidth,
         pathDiagram = pathDiagram,
+        pathDiagramEst = pathDiagramEst,
+        pathDiagramSig = pathDiagramSig,
         simpleSlopeEst = simpleSlopeEst,
         simpleSlopePlot = simpleSlopePlot)
 

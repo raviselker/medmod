@@ -58,6 +58,8 @@ items:
       clearWith:
         - dep
         - pred
+        - pathDiagramEst
+        - pathDiagramSig
         - mod
         - estMethod
 

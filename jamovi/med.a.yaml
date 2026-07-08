@@ -161,5 +161,23 @@ options:
       description:
           R: >
             `TRUE` or `FALSE` (default), provide a path diagram of the
-            mediation model, annotated with the estimated path coefficients.
+            mediation model.
+
+    - name: pathDiagramEst
+      title: Estimates
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, annotate the path diagram arrows
+            with the estimated coefficients.
+
+    - name: pathDiagramSig
+      title: Significance
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, annotate the path diagram arrows
+            with significance stars.
 ...

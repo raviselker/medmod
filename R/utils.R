@@ -46,8 +46,18 @@ shortenLabel <- function(x, n = 16) {
 #' @param name Path name (e.g. \code{'a'}).
 #' @param est Estimated coefficient.
 #' @param p The p value, converted to significance stars.
-pathLabel <- function(name, est, p) {
-    return(paste0(name, ' = ', sprintf('%.2f', est), sigStars(p)))
+#' @param showEst Whether to include the estimate.
+#' @param showSig Whether to include the significance stars.
+pathLabel <- function(name, est, p, showEst = TRUE, showSig = TRUE) {
+    label <- name
+    if (showEst) {
+        label <- paste0(label, ' = ', sprintf('%.2f', est))
+    }
+    if (showSig) {
+        label <- paste0(label, sigStars(p))
+    }
+
+    return(label)
 }
 
 #' Draw a path diagram
@@ -64,7 +74,8 @@ pathLabel <- function(name, est, p) {
 #'   \code{toX}/\code{toY} override the anchor points.
 #' @param ggtheme The jamovi ggplot2 theme.
 #' @param theme The jamovi theme colors.
-drawPathDiagram <- function(nodes, edges, ggtheme, theme) {
+#' @param sigCaption Whether to caption the significance star cutoffs.
+drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
     halfW <- 1.55
     halfH <- 0.55
     gap <- 0.12
@@ -158,7 +169,9 @@ drawPathDiagram <- function(nodes, edges, ggtheme, theme) {
             breaks = NULL,
             limits = c(min(nodes$y) - halfH - 0.6, max(nodes$y) + halfH + 0.6)
         ) +
-        ggplot2::labs(caption = '* p < .05, ** p < .01, *** p < .001') +
+        ggplot2::labs(
+            caption = if (sigCaption) '* p < .05, ** p < .01, *** p < .001' else NULL
+        ) +
         ggtheme +
         ggplot2::theme(
             axis.line = ggplot2::element_blank(),
