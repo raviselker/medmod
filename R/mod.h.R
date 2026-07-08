@@ -14,6 +14,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             test = TRUE,
             ci = FALSE,
             ciWidth = 95,
+            pathDiagram = FALSE,
             simpleSlopeEst = FALSE,
             simpleSlopePlot = FALSE, ...) {
 
@@ -70,6 +71,10 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 min=50,
                 max=99.9,
                 default=95)
+            private$..pathDiagram <- jmvcore::OptionBool$new(
+                "pathDiagram",
+                pathDiagram,
+                default=FALSE)
             private$..simpleSlopeEst <- jmvcore::OptionBool$new(
                 "simpleSlopeEst",
                 simpleSlopeEst,
@@ -87,6 +92,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..test)
             self$.addOption(private$..ci)
             self$.addOption(private$..ciWidth)
+            self$.addOption(private$..pathDiagram)
             self$.addOption(private$..simpleSlopeEst)
             self$.addOption(private$..simpleSlopePlot)
         }),
@@ -99,6 +105,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         test = function() private$..test$value,
         ci = function() private$..ci$value,
         ciWidth = function() private$..ciWidth$value,
+        pathDiagram = function() private$..pathDiagram$value,
         simpleSlopeEst = function() private$..simpleSlopeEst$value,
         simpleSlopePlot = function() private$..simpleSlopePlot$value),
     private = list(
@@ -110,6 +117,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..test = NA,
         ..ci = NA,
         ..ciWidth = NA,
+        ..pathDiagram = NA,
         ..simpleSlopeEst = NA,
         ..simpleSlopePlot = NA)
 )
@@ -119,6 +127,7 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
         mod = function() private$.items[["mod"]],
+        pathDiagram = function() private$.items[["pathDiagram"]],
         simpleSlope = function() private$.items[["simpleSlope"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
@@ -172,6 +181,19 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                         `type`="number", 
                         `format`="zto,pvalue", 
                         `visible`="(test)"))))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="pathDiagram",
+                title="Path Diagram",
+                width=500,
+                height=300,
+                renderFun=".pathDiagram",
+                visible="(pathDiagram)",
+                clearWith=list(
+                    "dep",
+                    "pred",
+                    "mod",
+                    "estMethod")))
             self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
@@ -306,6 +328,9 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   interval for the mediation estimates
 #' @param ciWidth a number between 50 and 99.9 (default: 95) specifying the
 #'   confidence interval width that is used as \code{'ci'}
+#' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a
+#'   conceptual path diagram of the moderation model, annotated with the
+#'   estimated coefficients.
 #' @param simpleSlopeEst \code{TRUE} or \code{FALSE} (default), provide the
 #'   estimates of the simple slopes.
 #' @param simpleSlopePlot \code{TRUE} or \code{FALSE} (default), provide a
@@ -313,6 +338,7 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$mod} \tab \tab \tab \tab \tab a table containing moderation estimates \cr
+#'   \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$simpleSlope$estimates} \tab \tab \tab \tab \tab a table containing the simple slope estimates \cr
 #'   \code{results$simpleSlope$plot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the moderation model \cr
@@ -335,6 +361,7 @@ mod <- function(
     test = TRUE,
     ci = FALSE,
     ciWidth = 95,
+    pathDiagram = FALSE,
     simpleSlopeEst = FALSE,
     simpleSlopePlot = FALSE) {
 
@@ -361,6 +388,7 @@ mod <- function(
         test = test,
         ci = ci,
         ciWidth = ciWidth,
+        pathDiagram = pathDiagram,
         simpleSlopeEst = simpleSlopeEst,
         simpleSlopePlot = simpleSlopePlot)
 

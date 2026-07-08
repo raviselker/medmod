@@ -14,6 +14,7 @@ mod(
   test = TRUE,
   ci = FALSE,
   ciWidth = 95,
+  pathDiagram = FALSE,
   simpleSlopeEst = FALSE,
   simpleSlopePlot = FALSE
 )
@@ -42,6 +43,10 @@ interval for the mediation estimates}
 \item{ciWidth}{a number between 50 and 99.9 (default: 95) specifying the
 confidence interval width that is used as \code{'ci'}}
 
+\item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a
+conceptual path diagram of the moderation model, annotated with the
+estimated coefficients.}
+
 \item{simpleSlopeEst}{\code{TRUE} or \code{FALSE} (default), provide the
 estimates of the simple slopes.}
 
@@ -52,6 +57,7 @@ plot of the simple slopes.}
 A results object containing:
 \tabular{llllll}{
   \code{results$mod} \tab \tab \tab \tab \tab a table containing moderation estimates \cr
+  \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
   \code{results$simpleSlope$estimates} \tab \tab \tab \tab \tab a table containing the simple slope estimates \cr
   \code{results$simpleSlope$plot} \tab \tab \tab \tab \tab an image \cr
   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the moderation model \cr

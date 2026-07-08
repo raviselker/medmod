@@ -24,6 +24,20 @@ test_that('moderation works', {
     expect_equal(5.249576, ss$est[3], tolerance = 1e-5)
 })
 
+test_that('path diagram renders', {
+    # GIVEN a moderation analysis with the path diagram enabled
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+    r <- medmod::mod(data, dep = 'Y', pred = 'X', mod = 'M', pathDiagram = TRUE)
+
+    # WHEN the diagram is rendered
+    pdf(NULL)
+    on.exit(dev.off())
+
+    # THEN no error is raised
+    expect_error(print(r$pathDiagram), NA)
+})
+
 test_that('simple slope plot renders', {
     # GIVEN a moderation analysis with the simple slope plot enabled
     set.seed(1)

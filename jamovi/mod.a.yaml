@@ -120,6 +120,16 @@ options:
             a number between 50 and 99.9 (default: 95) specifying the confidence
             interval width that is used as `'ci'`
             
+    - name: pathDiagram
+      title: Path diagram
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), provide a conceptual path diagram
+            of the moderation model, annotated with the estimated
+            coefficients.
+
     - name: simpleSlopeEst
       title: Estimates
       type: Bool

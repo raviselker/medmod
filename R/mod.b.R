@@ -25,6 +25,7 @@ modClass <- R6::R6Class(
 
                 private$.populateModTable(results)
                 private$.populateSimpleSlopeTable(results)
+                private$.preparePathDiagram(results)
                 private$.prepareSimpleSlopePlot(data, results)
             }
         },
@@ -144,6 +145,55 @@ modClass <- R6::R6Class(
         },
 
         #### Plot functions ----
+        .preparePathDiagram = function(results) {
+            image <- self$results$pathDiagram
+            est <- lavaan::parameterestimates(results$fit)
+
+            b1 <- lavaanRow(est, label = 'b1')
+            b3 <- lavaanRow(est, label = 'b3')
+
+            nodes <- data.frame(
+                name = c('pred', 'dep', 'mod'),
+                label = shortenLabel(c(
+                    self$options$pred,
+                    self$options$dep,
+                    self$options$mod
+                )),
+                x = c(1.5, 8.5, 5),
+                y = c(1, 1, 5)
+            )
+
+            # conceptual moderation diagram: the moderator arrow points at the
+            # pred -> dep path and carries the interaction estimate (b3); the
+            # moderator's main effect (b2) is only shown in the table
+            edges <- data.frame(
+                from = c('pred', 'mod'),
+                to = c('dep', NA),
+                fromX = NA_real_,
+                fromY = NA_real_,
+                toX = c(NA, 5),
+                toY = c(NA, 1.15),
+                label = c(
+                    pathLabel('b1', b1$est, b1$pvalue),
+                    pathLabel('b3', b3$est, b3$pvalue)
+                ),
+                nudgeX = c(-0.9, 1.05),
+                nudgeY = c(-0.4, 0)
+            )
+
+            image$setState(list(nodes = nodes, edges = edges))
+        },
+        .pathDiagram = function(image, ggtheme, theme, ...) {
+            if (is.null(image$state)) {
+                return(FALSE)
+            }
+
+            p <- drawPathDiagram(image$state$nodes, image$state$edges, ggtheme, theme)
+
+            print(p)
+
+            TRUE
+        },
         .prepareSimpleSlopePlot = function(data, results) {
             image <- self$results$simpleSlope$plot
             est <- lavaan::parameterestimates(

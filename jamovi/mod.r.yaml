@@ -48,6 +48,19 @@ items:
           format: zto,pvalue
           visible: (test)
 
+    - name: pathDiagram
+      title: Path Diagram
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .pathDiagram
+      visible: (pathDiagram)
+      clearWith:
+        - dep
+        - pred
+        - mod
+        - estMethod
+
     - name: simpleSlope
       title: Simple Slope Analysis
       type: Group
