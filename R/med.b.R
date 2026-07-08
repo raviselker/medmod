@@ -111,7 +111,7 @@ medClass <- R6::R6Class(
                 level = self$options$ciWidth / 100
             )
 
-            total <- abs(est[est$label == 'ab', 'std.lv']) + abs(est[est$label == 'c', 'std.lv'])
+            total <- abs(est[est$label == 'ab', 'est']) + abs(est[est$label == 'c', 'est'])
 
             labels <- c('ab', 'c', 'total')
             for (i in seq_along(labels)) {

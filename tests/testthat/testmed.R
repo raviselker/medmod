@@ -23,6 +23,26 @@ test_that('mediation works', {
     expect_equal(0.1044457, path$se[3], tolerance = 1e-5)
 })
 
+test_that('percent mediation is the effect share of the total effect', {
+    # GIVEN a mediation analysis with percent mediation enabled
+    set.seed(1234)
+    X <- rnorm(100)
+    M <- 0.5 * X + rnorm(100)
+    Y <- 0.7 * M + rnorm(100)
+    data <- data.frame(X = X, M = M, Y = Y)
+
+    # WHEN the analysis is run
+    r <- medmod::med(data, dep = 'Y', pred = 'X', med = 'M', pm = TRUE)
+    med <- r$med$asDF
+
+    # THEN each effect's percent mediation is its share of the unstandardized
+    # indirect + direct magnitude, and the total row is 100
+    total <- abs(med$est[1]) + abs(med$est[2])
+    expect_equal(med$pm[1], abs(med$est[1]) / total * 100, tolerance = 1e-8)
+    expect_equal(med$pm[2], abs(med$est[2]) / total * 100, tolerance = 1e-8)
+    expect_equal(med$pm[3], 100)
+})
+
 test_that('estimate plot lines set their width via linewidth', {
     # GIVEN a mediation analysis with the estimate plot enabled
     set.seed(1)
