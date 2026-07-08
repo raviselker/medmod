@@ -90,3 +90,5 @@ children:
                 name: paths
               - type: CheckBox
                 name: estPlot
+              - type: CheckBox
+                name: pathDiagram

@@ -17,12 +17,14 @@ analyses:
     menuGroup: medmod
     menuTitle: Mediation
     description: Simple mediation analysis
+    category: analyses
   - title: Moderation
     name: mod
     ns: medmod
     menuGroup: medmod
     menuTitle: Moderation
     description: Simple mediation analysis
+    category: analyses
 usesNative: true
 minApp: 1.0.8
 

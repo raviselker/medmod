@@ -120,6 +120,19 @@ items:
           format: zto,pvalue
           visible: (test)
           
+    - name: pathDiagram
+      title: Path Diagram
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .pathDiagram
+      visible: (pathDiagram)
+      clearWith:
+        - dep
+        - pred
+        - med
+        - estMethod
+
     - name: estPlot
       title: Estimate Plot
       type: Image

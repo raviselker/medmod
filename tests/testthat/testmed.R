@@ -43,6 +43,20 @@ test_that('percent mediation is the effect share of the total effect', {
     expect_equal(med$pm[3], 100)
 })
 
+test_that('path diagram renders', {
+    # GIVEN a mediation analysis with the path diagram enabled
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+    r <- medmod::med(data, dep = 'Y', pred = 'X', med = 'M', pathDiagram = TRUE)
+
+    # WHEN the diagram is rendered
+    pdf(NULL)
+    on.exit(dev.off())
+
+    # THEN no error is raised
+    expect_error(print(r$pathDiagram), NA)
+})
+
 test_that('estimate plot renders', {
     # GIVEN a mediation analysis with the estimate plot enabled
     set.seed(1)
