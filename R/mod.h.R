@@ -186,7 +186,9 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "dep",
                     "pred",
                     "mod",
-                    "estMethod"),
+                    "estMethod",
+                    "bootstrap",
+                    "ciWidth"),
                 columns=list(
                     list(
                         `name`="term", 
@@ -243,7 +245,8 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "pathDiagramEst",
                     "pathDiagramSig",
                     "mod",
-                    "estMethod")))
+                    "estMethod",
+                    "bootstrap")))
             self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
@@ -265,7 +268,9 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                                 "dep",
                                 "pred",
                                 "mod",
-                                "estMethod"),
+                                "estMethod",
+                                "bootstrap",
+                                "ciWidth"),
                             columns=list(
                                 list(
                                     `name`="term", 
@@ -313,6 +318,7 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                                 "pred",
                                 "mod",
                                 "estMethod",
+                                "bootstrap",
                                 "ciWidth")))}))$new(options=options))
             private$..modelSyntax <- NULL},
         .setModelSyntax=function(x) private$..modelSyntax <- x))

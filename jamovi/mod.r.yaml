@@ -13,6 +13,8 @@ items:
         - pred
         - mod
         - estMethod
+        - bootstrap
+        - ciWidth
 
       columns:
         - name: term
@@ -70,6 +72,7 @@ items:
         - pathDiagramSig
         - mod
         - estMethod
+        - bootstrap
 
     - name: simpleSlope
       title: Simple Slope Analysis
@@ -85,6 +88,8 @@ items:
             - pred
             - mod
             - estMethod
+            - bootstrap
+            - ciWidth
     
           columns:
             - name: term
@@ -132,6 +137,7 @@ items:
             - pred
             - mod
             - estMethod
+            - bootstrap
             - ciWidth
               
     - name:  modelSyntax

@@ -13,6 +13,8 @@ items:
         - pred
         - med
         - estMethod
+        - bootstrap
+        - ciWidth
 
       columns:
         - name: effect
@@ -70,6 +72,8 @@ items:
         - pred
         - med
         - estMethod
+        - bootstrap
+        - ciWidth
 
       columns:
         - name: var1
@@ -135,6 +139,7 @@ items:
         - pathDiagramSig
         - med
         - estMethod
+        - bootstrap
 
     - name: estPlot
       title: Estimate Plot
@@ -148,6 +153,7 @@ items:
         - pred
         - med
         - estMethod
+        - bootstrap
         - ciWidth
         - label
         

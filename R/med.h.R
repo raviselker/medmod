@@ -187,7 +187,9 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "dep",
                     "pred",
                     "med",
-                    "estMethod"),
+                    "estMethod",
+                    "bootstrap",
+                    "ciWidth"),
                 columns=list(
                     list(
                         `name`="effect", 
@@ -243,7 +245,9 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "dep",
                     "pred",
                     "med",
-                    "estMethod"),
+                    "estMethod",
+                    "bootstrap",
+                    "ciWidth"),
                 columns=list(
                     list(
                         `name`="var1", 
@@ -308,7 +312,8 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "pathDiagramEst",
                     "pathDiagramSig",
                     "med",
-                    "estMethod")))
+                    "estMethod",
+                    "bootstrap")))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="estPlot",
@@ -322,6 +327,7 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "pred",
                     "med",
                     "estMethod",
+                    "bootstrap",
                     "ciWidth",
                     "label")))
             private$..modelSyntax <- NULL},
