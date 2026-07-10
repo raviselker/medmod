@@ -186,8 +186,11 @@ modClass <- R6::R6Class(
                     pathLabel('b[1]', b1$est, b1$pvalue, showName, showEst, showSig),
                     pathLabel('b[3]', b3$est, b3$pvalue, showName, showEst, showSig)
                 ),
-                nudgeX = c(-0.9, -1.05),
-                nudgeY = c(-0.4, 0)
+                # b1 stays centered below its arrow; b3 grows leftwards from
+                # just left of the vertical arrow
+                nudgeX = c(0, -0.25),
+                nudgeY = c(-0.4, 0),
+                hjust = c(0.5, 1)
             )
 
             if (self$options$pathDiagramMainEffect) {
@@ -209,8 +212,9 @@ modClass <- R6::R6Class(
                             showEst,
                             showSig
                         ),
-                        nudgeX = 0.85,
-                        nudgeY = 0.15
+                        nudgeX = 0.25,
+                        nudgeY = 0.15,
+                        hjust = 0
                     )
                 )
             }

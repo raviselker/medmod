@@ -82,8 +82,11 @@ pathLabel <- function(name, est, p, showName = TRUE, showEst = TRUE, showSig = T
 #' @param nodes Data frame with \code{name}, \code{label}, \code{x}, \code{y}.
 #' @param edges Data frame with \code{from}, \code{to}, \code{toX},
 #'   \code{toY}, \code{fromX}, \code{fromY}, \code{label}, \code{nudgeX},
-#'   \code{nudgeY} (label offset from the arrow midpoint). Arrows run between
-#'   box borders by default; non-\code{NA} \code{fromX}/\code{fromY} and
+#'   \code{nudgeY} (label offset from the arrow midpoint) and \code{hjust}
+#'   (\code{1} grows the label leftwards from its position, \code{0}
+#'   rightwards, \code{0.5} centers it, so the gap to the arrow stays
+#'   constant however long the label is). Arrows run between box borders by
+#'   default; non-\code{NA} \code{fromX}/\code{fromY} and
 #'   \code{toX}/\code{toY} override the anchor points.
 #' @param ggtheme The jamovi ggplot2 theme.
 #' @param theme The jamovi theme colors.
@@ -128,7 +131,8 @@ drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
         yend = end$y,
         label = edges$label,
         labelX = (start$x + end$x) / 2 + edges$nudgeX,
-        labelY = (start$y + end$y) / 2 + edges$nudgeY
+        labelY = (start$y + end$y) / 2 + edges$nudgeY,
+        hjust = edges$hjust
     )
 
     p <- ggplot2::ggplot() +
@@ -169,7 +173,12 @@ drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
         ) +
         ggplot2::geom_text(
             data = segments,
-            ggplot2::aes(x = .data$labelX, y = .data$labelY, label = .data$label),
+            ggplot2::aes(
+                x = .data$labelX,
+                y = .data$labelY,
+                label = .data$label,
+                hjust = .data$hjust
+            ),
             colour = theme$color[1],
             size = 4.5,
             parse = TRUE
