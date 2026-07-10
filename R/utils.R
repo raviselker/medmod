@@ -43,25 +43,28 @@ shortenLabel <- function(x, n = 16) {
 
 #' Format a path coefficient annotation
 #'
-#' \code{pathLabel} builds the arrow annotation for a path diagram, e.g.
-#' \code{"a = 0.42***"}.
+#' \code{pathLabel} builds the arrow annotation for a path diagram as a
+#' plotmath expression, e.g. \code{'b[1] == "0.42***"'}, so subscripted path
+#' names render as real subscripts on any graphics device.
 #'
-#' @param name Path name (e.g. \code{'a'}).
+#' @param name Path name as plotmath (e.g. \code{'a'} or \code{'b[1]'}).
 #' @param est Estimated coefficient.
 #' @param p The p value, converted to significance stars.
 #' @param showEst Whether to include the estimate.
 #' @param showSig Whether to include the significance stars.
 #' @keywords internal
 pathLabel <- function(name, est, p, showEst = TRUE, showSig = TRUE) {
-    label <- name
+    stars <- if (showSig) sigStars(p) else ''
+
     if (showEst) {
-        label <- paste0(label, ' = ', sprintf('%.2f', est))
-    }
-    if (showSig) {
-        label <- paste0(label, sigStars(p))
+        return(paste0(name, ' == "', sprintf('%.2f', est), stars, '"'))
     }
 
-    return(label)
+    if (nchar(stars) > 0) {
+        return(paste0(name, '*"', stars, '"'))
+    }
+
+    return(name)
 }
 
 #' Draw a path diagram
@@ -162,7 +165,8 @@ drawPathDiagram <- function(nodes, edges, ggtheme, theme, sigCaption = TRUE) {
             data = segments,
             ggplot2::aes(x = .data$labelX, y = .data$labelY, label = .data$label),
             colour = theme$color[1],
-            size = 4.5
+            size = 4.5,
+            parse = TRUE
         ) +
         ggplot2::scale_x_continuous(
             name = NULL,

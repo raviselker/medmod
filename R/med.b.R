@@ -188,7 +188,7 @@ medClass <- R6::R6Class(
                 label = c(
                     pathLabel('a', pathA$est, pathA$pvalue, showEst, showSig),
                     pathLabel('b', pathB$est, pathB$pvalue, showEst, showSig),
-                    pathLabel("c'", pathC$est, pathC$pvalue, showEst, showSig)
+                    pathLabel("\"c'\"", pathC$est, pathC$pvalue, showEst, showSig)
                 ),
                 nudgeX = c(-0.85, 0.85, 0),
                 nudgeY = c(0.15, 0.15, -0.35)
