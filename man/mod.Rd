@@ -16,6 +16,7 @@ mod(
   ci = FALSE,
   ciWidth = 95,
   pathDiagram = FALSE,
+  pathDiagramLabel = TRUE,
   pathDiagramEst = TRUE,
   pathDiagramSig = TRUE,
   simpleSlopeEst = FALSE,
@@ -51,6 +52,9 @@ confidence interval width that is used as \code{'ci'}}
 
 \item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a
 conceptual path diagram of the moderation model.}
+
+\item{pathDiagramLabel}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with the path labels.}
 
 \item{pathDiagramEst}{\code{TRUE} (default) or \code{FALSE}, annotate the
 path diagram arrows with the estimated coefficients.}

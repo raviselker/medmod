@@ -3,14 +3,34 @@ context('utils')
 test_that('pathLabel composes the arrow annotation from its parts', {
     # GIVEN a significant path estimate
     # WHEN the annotation is built with each combination of parts
-    # THEN a plotmath expression includes the estimate and stars only when
-    # requested (subscripted names like b[1] render as subscripts)
+    # THEN a plotmath expression includes the name, estimate and stars only
+    # when requested (subscripted names like b[1] render as subscripts)
     expect_equal(pathLabel('b[1]', 0.423, 0.004), 'b[1] == "0.42**"')
     expect_equal(pathLabel('b[1]', 0.423, 0.004, showSig = FALSE), 'b[1] == "0.42"')
     expect_equal(pathLabel('b[1]', 0.423, 0.004, showEst = FALSE), 'b[1]*"**"')
     expect_equal(
         pathLabel('b[1]', 0.423, 0.004, showEst = FALSE, showSig = FALSE),
         'b[1]'
+    )
+    expect_equal(pathLabel('b[1]', 0.423, 0.004, showName = FALSE), '"0.42**"')
+    expect_equal(
+        pathLabel('b[1]', 0.423, 0.004, showName = FALSE, showSig = FALSE),
+        '"0.42"'
+    )
+    expect_equal(
+        pathLabel('b[1]', 0.423, 0.004, showName = FALSE, showEst = FALSE),
+        '"**"'
+    )
+    expect_equal(
+        pathLabel(
+            'b[1]',
+            0.423,
+            0.004,
+            showName = FALSE,
+            showEst = FALSE,
+            showSig = FALSE
+        ),
+        '""'
     )
 })
 

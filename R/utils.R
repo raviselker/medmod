@@ -50,14 +50,20 @@ shortenLabel <- function(x, n = 16) {
 #' @param name Path name as plotmath (e.g. \code{'a'} or \code{'b[1]'}).
 #' @param est Estimated coefficient.
 #' @param p The p value, converted to significance stars.
+#' @param showName Whether to include the path name.
 #' @param showEst Whether to include the estimate.
 #' @param showSig Whether to include the significance stars.
 #' @keywords internal
-pathLabel <- function(name, est, p, showEst = TRUE, showSig = TRUE) {
+pathLabel <- function(name, est, p, showName = TRUE, showEst = TRUE, showSig = TRUE) {
     stars <- if (showSig) sigStars(p) else ''
+    value <- if (showEst) paste0(sprintf('%.2f', est), stars) else stars
+
+    if (!showName) {
+        return(paste0('"', value, '"'))
+    }
 
     if (showEst) {
-        return(paste0(name, ' == "', sprintf('%.2f', est), stars, '"'))
+        return(paste0(name, ' == "', value, '"'))
     }
 
     if (nchar(stars) > 0) {

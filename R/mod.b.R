@@ -157,6 +157,7 @@ modClass <- R6::R6Class(
 
             b1 <- lavaanRow(est, label = 'b1')
             b3 <- lavaanRow(est, label = 'b3')
+            showName <- self$options$pathDiagramLabel
             showEst <- self$options$pathDiagramEst
             showSig <- self$options$pathDiagramSig
 
@@ -182,8 +183,8 @@ modClass <- R6::R6Class(
                 toX = c(NA, 5),
                 toY = c(NA, 1.15),
                 label = c(
-                    pathLabel('b[1]', b1$est, b1$pvalue, showEst, showSig),
-                    pathLabel('b[3]', b3$est, b3$pvalue, showEst, showSig)
+                    pathLabel('b[1]', b1$est, b1$pvalue, showName, showEst, showSig),
+                    pathLabel('b[3]', b3$est, b3$pvalue, showName, showEst, showSig)
                 ),
                 nudgeX = c(-0.9, 1.05),
                 nudgeY = c(-0.4, 0)

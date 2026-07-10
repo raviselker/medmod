@@ -138,6 +138,15 @@ options:
             `TRUE` or `FALSE` (default), provide a conceptual path diagram
             of the moderation model.
 
+    - name: pathDiagramLabel
+      title: Labels
+      type: Bool
+      default: true
+      description:
+          R: >
+            `TRUE` (default) or `FALSE`, annotate the path diagram arrows
+            with the path labels.
+
     - name: pathDiagramEst
       title: Estimates
       type: Bool
