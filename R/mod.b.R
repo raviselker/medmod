@@ -234,9 +234,7 @@ modClass <- R6::R6Class(
 
             p <- drawPathDiagram(nodes, edges, ggtheme, theme, sigCaption = showSig)
 
-            print(p)
-
-            TRUE
+            return(p)
         },
         .prepareSimpleSlopePlot = function(data, results) {
             image <- self$results$simpleSlope$plot
