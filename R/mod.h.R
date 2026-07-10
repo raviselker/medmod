@@ -19,6 +19,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             pathDiagramLabel = TRUE,
             pathDiagramEst = TRUE,
             pathDiagramSig = TRUE,
+            pathDiagramMainEffect = FALSE,
             simpleSlopeEst = FALSE,
             simpleSlopePlot = FALSE, ...) {
 
@@ -95,6 +96,10 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "pathDiagramSig",
                 pathDiagramSig,
                 default=TRUE)
+            private$..pathDiagramMainEffect <- jmvcore::OptionBool$new(
+                "pathDiagramMainEffect",
+                pathDiagramMainEffect,
+                default=FALSE)
             private$..simpleSlopeEst <- jmvcore::OptionBool$new(
                 "simpleSlopeEst",
                 simpleSlopeEst,
@@ -117,6 +122,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..pathDiagramLabel)
             self$.addOption(private$..pathDiagramEst)
             self$.addOption(private$..pathDiagramSig)
+            self$.addOption(private$..pathDiagramMainEffect)
             self$.addOption(private$..simpleSlopeEst)
             self$.addOption(private$..simpleSlopePlot)
         }),
@@ -134,6 +140,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         pathDiagramLabel = function() private$..pathDiagramLabel$value,
         pathDiagramEst = function() private$..pathDiagramEst$value,
         pathDiagramSig = function() private$..pathDiagramSig$value,
+        pathDiagramMainEffect = function() private$..pathDiagramMainEffect$value,
         simpleSlopeEst = function() private$..simpleSlopeEst$value,
         simpleSlopePlot = function() private$..simpleSlopePlot$value),
     private = list(
@@ -150,6 +157,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..pathDiagramLabel = NA,
         ..pathDiagramEst = NA,
         ..pathDiagramSig = NA,
+        ..pathDiagramMainEffect = NA,
         ..simpleSlopeEst = NA,
         ..simpleSlopePlot = NA)
 )
@@ -231,6 +239,7 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "dep",
                     "pred",
                     "pathDiagramLabel",
+                    "pathDiagramMainEffect",
                     "pathDiagramEst",
                     "pathDiagramSig",
                     "mod",
@@ -379,6 +388,9 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   path diagram arrows with the estimated coefficients.
 #' @param pathDiagramSig \code{TRUE} (default) or \code{FALSE}, annotate the
 #'   path diagram arrows with significance stars.
+#' @param pathDiagramMainEffect \code{TRUE} or \code{FALSE} (default), draw
+#'   the moderator's main effect on the dependent variable (b2) in the path
+#'   diagram.
 #' @param simpleSlopeEst \code{TRUE} or \code{FALSE} (default), provide the
 #'   estimates of the simple slopes.
 #' @param simpleSlopePlot \code{TRUE} or \code{FALSE} (default), provide a
@@ -414,6 +426,7 @@ mod <- function(
     pathDiagramLabel = TRUE,
     pathDiagramEst = TRUE,
     pathDiagramSig = TRUE,
+    pathDiagramMainEffect = FALSE,
     simpleSlopeEst = FALSE,
     simpleSlopePlot = FALSE) {
 
@@ -445,6 +458,7 @@ mod <- function(
         pathDiagramLabel = pathDiagramLabel,
         pathDiagramEst = pathDiagramEst,
         pathDiagramSig = pathDiagramSig,
+        pathDiagramMainEffect = pathDiagramMainEffect,
         simpleSlopeEst = simpleSlopeEst,
         simpleSlopePlot = simpleSlopePlot)
 

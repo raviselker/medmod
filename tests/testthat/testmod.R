@@ -54,6 +54,27 @@ test_that('path diagram renders', {
     expect_error(print(r$pathDiagram), NA)
 })
 
+test_that('path diagram renders with the moderator effect arrow', {
+    # GIVEN a moderation analysis showing the moderator main effect (b2)
+    set.seed(1)
+    data <- data.frame(Y = rnorm(50), X = rnorm(50), M = rnorm(50))
+    r <- medmod::mod(
+        data,
+        dep = 'Y',
+        pred = 'X',
+        mod = 'M',
+        pathDiagram = TRUE,
+        pathDiagramMainEffect = TRUE
+    )
+
+    # WHEN the diagram is rendered
+    pdf(NULL)
+    on.exit(dev.off())
+
+    # THEN no error is raised
+    expect_error(print(r$pathDiagram), NA)
+})
+
 test_that('simple slope plot renders', {
     # GIVEN a moderation analysis with the simple slope plot enabled
     set.seed(1)
