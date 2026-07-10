@@ -103,3 +103,6 @@ children:
                   - type: CheckBox
                     name: pathDiagramSig
                     enable: (pathDiagram)
+                  - type: CheckBox
+                    name: pathDiagramMainEffect
+                    enable: (pathDiagram)

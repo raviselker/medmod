@@ -65,6 +65,7 @@ items:
         - dep
         - pred
         - pathDiagramLabel
+        - pathDiagramMainEffect
         - pathDiagramEst
         - pathDiagramSig
         - mod

@@ -174,7 +174,7 @@ modClass <- R6::R6Class(
 
             # conceptual moderation diagram: the moderator arrow points at the
             # pred -> dep path and carries the interaction estimate (b3); the
-            # moderator's main effect (b2) is only shown in the table
+            # moderator's main effect (b2) is optionally drawn as its own arrow
             edges <- data.frame(
                 from = c('pred', 'mod'),
                 to = c('dep', NA),
@@ -186,9 +186,34 @@ modClass <- R6::R6Class(
                     pathLabel('b[1]', b1$est, b1$pvalue, showName, showEst, showSig),
                     pathLabel('b[3]', b3$est, b3$pvalue, showName, showEst, showSig)
                 ),
-                nudgeX = c(-0.9, 1.05),
+                nudgeX = c(-0.9, -1.05),
                 nudgeY = c(-0.4, 0)
             )
+
+            if (self$options$pathDiagramMainEffect) {
+                b2 <- lavaanRow(est, label = 'b2')
+                edges <- rbind(
+                    edges,
+                    data.frame(
+                        from = 'mod',
+                        to = NA,
+                        fromX = 5.85,
+                        fromY = 4.38,
+                        toX = 7.7,
+                        toY = 1.62,
+                        label = pathLabel(
+                            'b[2]',
+                            b2$est,
+                            b2$pvalue,
+                            showName,
+                            showEst,
+                            showSig
+                        ),
+                        nudgeX = 0.85,
+                        nudgeY = 0.15
+                    )
+                )
+            }
 
             image$setState(list(nodes = nodes, edges = edges))
         },

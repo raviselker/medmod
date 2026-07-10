@@ -165,6 +165,15 @@ options:
             `TRUE` (default) or `FALSE`, annotate the path diagram arrows
             with significance stars.
 
+    - name: pathDiagramMainEffect
+      title: Moderator effect
+      type: Bool
+      default: false
+      description:
+          R: >
+            `TRUE` or `FALSE` (default), draw the moderator's main effect
+            on the dependent variable (b2) in the path diagram.
+
     - name: simpleSlopeEst
       title: Estimates
       type: Bool

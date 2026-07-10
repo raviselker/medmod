@@ -19,6 +19,7 @@ mod(
   pathDiagramLabel = TRUE,
   pathDiagramEst = TRUE,
   pathDiagramSig = TRUE,
+  pathDiagramMainEffect = FALSE,
   simpleSlopeEst = FALSE,
   simpleSlopePlot = FALSE
 )
@@ -61,6 +62,10 @@ path diagram arrows with the estimated coefficients.}
 
 \item{pathDiagramSig}{\code{TRUE} (default) or \code{FALSE}, annotate the
 path diagram arrows with significance stars.}
+
+\item{pathDiagramMainEffect}{\code{TRUE} or \code{FALSE} (default), draw
+the moderator's main effect on the dependent variable (b2) in the path
+diagram.}
 
 \item{simpleSlopeEst}{\code{TRUE} or \code{FALSE} (default), provide the
 estimates of the simple slopes.}
