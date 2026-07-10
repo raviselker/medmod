@@ -94,6 +94,9 @@ children:
                 name: pathDiagram
                 children:
                   - type: CheckBox
+                    name: pathDiagramLabel
+                    enable: (pathDiagram)
+                  - type: CheckBox
                     name: pathDiagramEst
                     enable: (pathDiagram)
                   - type: CheckBox

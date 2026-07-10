@@ -4,7 +4,7 @@
 \alias{pathLabel}
 \title{Format a path coefficient annotation}
 \usage{
-pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
+pathLabel(name, est, p, showName = TRUE, showEst = TRUE, showSig = TRUE)
 }
 \arguments{
 \item{name}{Path name as plotmath (e.g. \code{'a'} or \code{'b[1]'}).}
@@ -12,6 +12,8 @@ pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
 \item{est}{Estimated coefficient.}
 
 \item{p}{The p value, converted to significance stars.}
+
+\item{showName}{Whether to include the path name.}
 
 \item{showEst}{Whether to include the estimate.}
 

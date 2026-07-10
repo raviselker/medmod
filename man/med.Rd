@@ -19,6 +19,7 @@ med(
   label = FALSE,
   estPlot = FALSE,
   pathDiagram = FALSE,
+  pathDiagramLabel = TRUE,
   pathDiagramEst = TRUE,
   pathDiagramSig = TRUE
 )
@@ -62,6 +63,9 @@ intervals are plotted.}
 
 \item{pathDiagram}{\code{TRUE} or \code{FALSE} (default), provide a path
 diagram of the mediation model.}
+
+\item{pathDiagramLabel}{\code{TRUE} (default) or \code{FALSE}, annotate the
+path diagram arrows with the path labels.}
 
 \item{pathDiagramEst}{\code{TRUE} (default) or \code{FALSE}, annotate the
 path diagram arrows with the estimated coefficients.}

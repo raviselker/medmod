@@ -19,6 +19,7 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             label = FALSE,
             estPlot = FALSE,
             pathDiagram = FALSE,
+            pathDiagramLabel = TRUE,
             pathDiagramEst = TRUE,
             pathDiagramSig = TRUE, ...) {
 
@@ -95,6 +96,10 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "pathDiagram",
                 pathDiagram,
                 default=FALSE)
+            private$..pathDiagramLabel <- jmvcore::OptionBool$new(
+                "pathDiagramLabel",
+                pathDiagramLabel,
+                default=TRUE)
             private$..pathDiagramEst <- jmvcore::OptionBool$new(
                 "pathDiagramEst",
                 pathDiagramEst,
@@ -117,6 +122,7 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..label)
             self$.addOption(private$..estPlot)
             self$.addOption(private$..pathDiagram)
+            self$.addOption(private$..pathDiagramLabel)
             self$.addOption(private$..pathDiagramEst)
             self$.addOption(private$..pathDiagramSig)
         }),
@@ -134,6 +140,7 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         label = function() private$..label$value,
         estPlot = function() private$..estPlot$value,
         pathDiagram = function() private$..pathDiagram$value,
+        pathDiagramLabel = function() private$..pathDiagramLabel$value,
         pathDiagramEst = function() private$..pathDiagramEst$value,
         pathDiagramSig = function() private$..pathDiagramSig$value),
     private = list(
@@ -150,6 +157,7 @@ medOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..label = NA,
         ..estPlot = NA,
         ..pathDiagram = NA,
+        ..pathDiagramLabel = NA,
         ..pathDiagramEst = NA,
         ..pathDiagramSig = NA)
 )
@@ -296,6 +304,7 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 clearWith=list(
                     "dep",
                     "pred",
+                    "pathDiagramLabel",
                     "pathDiagramEst",
                     "pathDiagramSig",
                     "med",
@@ -389,6 +398,8 @@ medBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   intervals are plotted.
 #' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a path
 #'   diagram of the mediation model.
+#' @param pathDiagramLabel \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with the path labels.
 #' @param pathDiagramEst \code{TRUE} (default) or \code{FALSE}, annotate the
 #'   path diagram arrows with the estimated coefficients.
 #' @param pathDiagramSig \code{TRUE} (default) or \code{FALSE}, annotate the
@@ -424,6 +435,7 @@ med <- function(
     label = FALSE,
     estPlot = FALSE,
     pathDiagram = FALSE,
+    pathDiagramLabel = TRUE,
     pathDiagramEst = TRUE,
     pathDiagramSig = TRUE) {
 
@@ -455,6 +467,7 @@ med <- function(
         label = label,
         estPlot = estPlot,
         pathDiagram = pathDiagram,
+        pathDiagramLabel = pathDiagramLabel,
         pathDiagramEst = pathDiagramEst,
         pathDiagramSig = pathDiagramSig)
 

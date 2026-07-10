@@ -130,6 +130,7 @@ items:
       clearWith:
         - dep
         - pred
+        - pathDiagramLabel
         - pathDiagramEst
         - pathDiagramSig
         - med

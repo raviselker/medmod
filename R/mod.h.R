@@ -16,6 +16,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             ci = FALSE,
             ciWidth = 95,
             pathDiagram = FALSE,
+            pathDiagramLabel = TRUE,
             pathDiagramEst = TRUE,
             pathDiagramSig = TRUE,
             simpleSlopeEst = FALSE,
@@ -82,6 +83,10 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "pathDiagram",
                 pathDiagram,
                 default=FALSE)
+            private$..pathDiagramLabel <- jmvcore::OptionBool$new(
+                "pathDiagramLabel",
+                pathDiagramLabel,
+                default=TRUE)
             private$..pathDiagramEst <- jmvcore::OptionBool$new(
                 "pathDiagramEst",
                 pathDiagramEst,
@@ -109,6 +114,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..ci)
             self$.addOption(private$..ciWidth)
             self$.addOption(private$..pathDiagram)
+            self$.addOption(private$..pathDiagramLabel)
             self$.addOption(private$..pathDiagramEst)
             self$.addOption(private$..pathDiagramSig)
             self$.addOption(private$..simpleSlopeEst)
@@ -125,6 +131,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ci = function() private$..ci$value,
         ciWidth = function() private$..ciWidth$value,
         pathDiagram = function() private$..pathDiagram$value,
+        pathDiagramLabel = function() private$..pathDiagramLabel$value,
         pathDiagramEst = function() private$..pathDiagramEst$value,
         pathDiagramSig = function() private$..pathDiagramSig$value,
         simpleSlopeEst = function() private$..simpleSlopeEst$value,
@@ -140,6 +147,7 @@ modOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..ci = NA,
         ..ciWidth = NA,
         ..pathDiagram = NA,
+        ..pathDiagramLabel = NA,
         ..pathDiagramEst = NA,
         ..pathDiagramSig = NA,
         ..simpleSlopeEst = NA,
@@ -222,6 +230,7 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 clearWith=list(
                     "dep",
                     "pred",
+                    "pathDiagramLabel",
                     "pathDiagramEst",
                     "pathDiagramSig",
                     "mod",
@@ -364,6 +373,8 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   confidence interval width that is used as \code{'ci'}
 #' @param pathDiagram \code{TRUE} or \code{FALSE} (default), provide a
 #'   conceptual path diagram of the moderation model.
+#' @param pathDiagramLabel \code{TRUE} (default) or \code{FALSE}, annotate the
+#'   path diagram arrows with the path labels.
 #' @param pathDiagramEst \code{TRUE} (default) or \code{FALSE}, annotate the
 #'   path diagram arrows with the estimated coefficients.
 #' @param pathDiagramSig \code{TRUE} (default) or \code{FALSE}, annotate the
@@ -400,6 +411,7 @@ mod <- function(
     ci = FALSE,
     ciWidth = 95,
     pathDiagram = FALSE,
+    pathDiagramLabel = TRUE,
     pathDiagramEst = TRUE,
     pathDiagramSig = TRUE,
     simpleSlopeEst = FALSE,
@@ -430,6 +442,7 @@ mod <- function(
         ci = ci,
         ciWidth = ciWidth,
         pathDiagram = pathDiagram,
+        pathDiagramLabel = pathDiagramLabel,
         pathDiagramEst = pathDiagramEst,
         pathDiagramSig = pathDiagramSig,
         simpleSlopeEst = simpleSlopeEst,
