@@ -198,8 +198,11 @@ medClass <- R6::R6Class(
                         showSig
                     )
                 ),
-                nudgeX = c(-0.85, 0.85, 0),
-                nudgeY = c(0.15, 0.15, -0.35)
+                # a grows leftwards from just left of its arrow, b rightwards
+                # from just right of its arrow, c' stays centered below
+                nudgeX = c(-0.25, 0.25, 0),
+                nudgeY = c(0.2, 0.2, -0.35),
+                hjust = c(1, 0, 0.5)
             )
 
             image$setState(list(nodes = nodes, edges = edges))

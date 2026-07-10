@@ -11,8 +11,11 @@ drawPathDiagram(nodes, edges, ggtheme, theme, sigCaption = TRUE)
 
 \item{edges}{Data frame with \code{from}, \code{to}, \code{toX},
 \code{toY}, \code{fromX}, \code{fromY}, \code{label}, \code{nudgeX},
-\code{nudgeY} (label offset from the arrow midpoint). Arrows run between
-box borders by default; non-\code{NA} \code{fromX}/\code{fromY} and
+\code{nudgeY} (label offset from the arrow midpoint) and \code{hjust}
+(\code{1} grows the label leftwards from its position, \code{0}
+rightwards, \code{0.5} centers it, so the gap to the arrow stays
+constant however long the label is). Arrows run between box borders by
+default; non-\code{NA} \code{fromX}/\code{fromY} and
 \code{toX}/\code{toY} override the anchor points.}
 
 \item{ggtheme}{The jamovi ggplot2 theme.}
