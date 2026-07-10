@@ -158,13 +158,26 @@ medClass <- R6::R6Class(
         .preparePathDiagram = function(results) {
             image <- self$results$pathDiagram
             est <- lavaan::parameterestimates(results$fit)
-            showName <- self$options$pathDiagramLabel
-            showEst <- self$options$pathDiagramEst
-            showSig <- self$options$pathDiagramSig
 
             pathA <- lavaanRow(est, label = 'a')
             pathB <- lavaanRow(est, label = 'b')
             pathC <- lavaanRow(est, label = 'c')
+
+            image$setState(data.frame(
+                path = c('a', 'b', 'c'),
+                est = c(pathA$est, pathB$est, pathC$est),
+                p = c(pathA$pvalue, pathB$pvalue, pathC$pvalue)
+            ))
+        },
+        .pathDiagram = function(image, ggtheme, theme, ...) {
+            if (is.null(image$state)) {
+                return(FALSE)
+            }
+
+            paths <- image$state
+            showName <- self$options$pathDiagramLabel
+            showEst <- self$options$pathDiagramEst
+            showSig <- self$options$pathDiagramSig
 
             nodes <- data.frame(
                 name = c('pred', 'med', 'dep'),
@@ -187,12 +200,12 @@ medClass <- R6::R6Class(
                 toX = c(4.15, 7.6, NA),
                 toY = c(4.38, 1.62, NA),
                 label = c(
-                    pathLabel('a', pathA$est, pathA$pvalue, showName, showEst, showSig),
-                    pathLabel('b', pathB$est, pathB$pvalue, showName, showEst, showSig),
+                    pathLabel('a', paths$est[1], paths$p[1], showName, showEst, showSig),
+                    pathLabel('b', paths$est[2], paths$p[2], showName, showEst, showSig),
                     pathLabel(
                         "\"c'\"",
-                        pathC$est,
-                        pathC$pvalue,
+                        paths$est[3],
+                        paths$p[3],
                         showName,
                         showEst,
                         showSig
@@ -205,20 +218,7 @@ medClass <- R6::R6Class(
                 hjust = c(1, 0, 0.5)
             )
 
-            image$setState(list(nodes = nodes, edges = edges))
-        },
-        .pathDiagram = function(image, ggtheme, theme, ...) {
-            if (is.null(image$state)) {
-                return(FALSE)
-            }
-
-            p <- drawPathDiagram(
-                image$state$nodes,
-                image$state$edges,
-                ggtheme,
-                theme,
-                sigCaption = self$options$pathDiagramSig
-            )
+            p <- drawPathDiagram(nodes, edges, ggtheme, theme, sigCaption = showSig)
 
             print(p)
 
