@@ -49,13 +49,13 @@ modClass <- R6::R6Class(
             pred <- self$options$pred
             mod <- self$options$mod
 
-            table$addRow(1, values = list(term = pred, label = 'b1'))
-            table$addRow(2, values = list(term = mod, label = 'b2'))
+            table$addRow(1, values = list(term = pred, label = 'b\u2081'))
+            table$addRow(2, values = list(term = mod, label = 'b\u2082'))
             table$addRow(
                 3,
                 values = list(
                     term = jmvcore::stringifyTerm(c(pred, mod)),
-                    label = 'b3'
+                    label = 'b\u2083'
                 )
             )
 
@@ -182,8 +182,8 @@ modClass <- R6::R6Class(
                 toX = c(NA, 5),
                 toY = c(NA, 1.15),
                 label = c(
-                    pathLabel('b1', b1$est, b1$pvalue, showEst, showSig),
-                    pathLabel('b3', b3$est, b3$pvalue, showEst, showSig)
+                    pathLabel('b[1]', b1$est, b1$pvalue, showEst, showSig),
+                    pathLabel('b[3]', b3$est, b3$pvalue, showEst, showSig)
                 ),
                 nudgeX = c(-0.9, 1.05),
                 nudgeY = c(-0.4, 0)

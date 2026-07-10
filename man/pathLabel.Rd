@@ -7,7 +7,7 @@
 pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
 }
 \arguments{
-\item{name}{Path name (e.g. \code{'a'}).}
+\item{name}{Path name as plotmath (e.g. \code{'a'} or \code{'b[1]'}).}
 
 \item{est}{Estimated coefficient.}
 
@@ -18,7 +18,8 @@ pathLabel(name, est, p, showEst = TRUE, showSig = TRUE)
 \item{showSig}{Whether to include the significance stars.}
 }
 \description{
-\code{pathLabel} builds the arrow annotation for a path diagram, e.g.
-\code{"a = 0.42***"}.
+\code{pathLabel} builds the arrow annotation for a path diagram as a
+plotmath expression, e.g. \code{'b[1] == "0.42***"'}, so subscripted path
+names render as real subscripts on any graphics device.
 }
 \keyword{internal}

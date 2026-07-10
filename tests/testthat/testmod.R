@@ -32,8 +32,12 @@ test_that('mod table labels the coefficients used in the model', {
     # WHEN the analysis is run
     r <- medmod::mod(data, dep = 'Y', pred = 'X', mod = 'M', label = TRUE)
 
-    # THEN each term shows its coefficient label, matching the path diagram
-    expect_equal(as.character(r$mod$asDF$label), c('b1', 'b2', 'b3'))
+    # THEN each term shows its subscripted coefficient label, matching the
+    # path diagram
+    expect_equal(
+        as.character(r$mod$asDF$label),
+        c('b\u2081', 'b\u2082', 'b\u2083')
+    )
 })
 
 test_that('path diagram renders', {

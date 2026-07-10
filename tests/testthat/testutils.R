@@ -3,11 +3,15 @@ context('utils')
 test_that('pathLabel composes the arrow annotation from its parts', {
     # GIVEN a significant path estimate
     # WHEN the annotation is built with each combination of parts
-    # THEN estimate and stars are included only when requested
-    expect_equal(pathLabel('a', 0.423, 0.004), 'a = 0.42**')
-    expect_equal(pathLabel('a', 0.423, 0.004, showSig = FALSE), 'a = 0.42')
-    expect_equal(pathLabel('a', 0.423, 0.004, showEst = FALSE), 'a**')
-    expect_equal(pathLabel('a', 0.423, 0.004, showEst = FALSE, showSig = FALSE), 'a')
+    # THEN a plotmath expression includes the estimate and stars only when
+    # requested (subscripted names like b[1] render as subscripts)
+    expect_equal(pathLabel('b[1]', 0.423, 0.004), 'b[1] == "0.42**"')
+    expect_equal(pathLabel('b[1]', 0.423, 0.004, showSig = FALSE), 'b[1] == "0.42"')
+    expect_equal(pathLabel('b[1]', 0.423, 0.004, showEst = FALSE), 'b[1]*"**"')
+    expect_equal(
+        pathLabel('b[1]', 0.423, 0.004, showEst = FALSE, showSig = FALSE),
+        'b[1]'
+    )
 })
 
 test_that('lavaanRow returns the rows matching one condition', {
