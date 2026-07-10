@@ -32,15 +32,31 @@ modClass <- R6::R6Class(
 
         #### Compute results ----
         .compute = function(data) {
-            model <- private$.lavaanify()
-            se <- self$options$estMethod
-            bootstrap <- self$options$bootstrap
+            # the estimates only depend on the variables, the estimation
+            # options and the CI level (the model cache's clearWith), so
+            # reuse them across other option changes -- refitting is
+            # expensive with bootstrap SEs. Only lavaan's estimates table is
+            # kept, so the state size does not grow with the data
+            est <- self$results$model$state
 
-            suppressWarnings({
-                fit <- lavaan::sem(model = model, data = data, se = se, bootstrap = bootstrap)
-            }) # suppressWarnings
+            if (is.null(est)) {
+                model <- private$.lavaanify()
+                se <- self$options$estMethod
+                bootstrap <- self$options$bootstrap
 
-            return(list('fit' = fit))
+                suppressWarnings({
+                    fit <- lavaan::sem(model = model, data = data, se = se, bootstrap = bootstrap)
+                }) # suppressWarnings
+
+                est <- lavaan::parameterestimates(
+                    fit,
+                    level = self$options$ciWidth / 100
+                )
+
+                self$results$model$setState(est)
+            }
+
+            return(list('est' = est))
         },
 
         #### Init tables/plots functions ----
@@ -100,11 +116,7 @@ modClass <- R6::R6Class(
         #### Populate tables ----
         .populateModTable = function(results) {
             table <- self$results$mod
-            est <- lavaan::parameterestimates(
-                results$fit,
-                standardized = TRUE,
-                level = self$options$ciWidth / 100
-            )
+            est <- results$est
 
             dep <- jmvcore::toB64(self$options$dep)
             pred <- jmvcore::toB64(self$options$pred)
@@ -128,11 +140,7 @@ modClass <- R6::R6Class(
         },
         .populateSimpleSlopeTable = function(results) {
             table <- self$results$simpleSlope$estimates
-            est <- lavaan::parameterestimates(
-                results$fit,
-                standardized = TRUE,
-                level = self$options$ciWidth / 100
-            )
+            est <- results$est
 
             labels <- c('mean', 'sdBelow', 'sdAbove')
             for (i in seq_along(labels)) {
@@ -153,7 +161,7 @@ modClass <- R6::R6Class(
         #### Plot functions ----
         .preparePathDiagram = function(results) {
             image <- self$results$pathDiagram
-            est <- lavaan::parameterestimates(results$fit)
+            est <- results$est
 
             b1 <- lavaanRow(est, label = 'b1')
             b2 <- lavaanRow(est, label = 'b2')
@@ -238,11 +246,7 @@ modClass <- R6::R6Class(
         },
         .prepareSimpleSlopePlot = function(data, results) {
             image <- self$results$simpleSlope$plot
-            est <- lavaan::parameterestimates(
-                results$fit,
-                standardized = TRUE,
-                level = self$options$ciWidth / 100
-            )
+            est <- results$est
 
             mod <- self$options$mod
 
