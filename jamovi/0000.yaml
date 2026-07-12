@@ -25,6 +25,23 @@ analyses:
     menuTitle: Moderation
     description: Simple mediation analysis
     category: analyses
+datasets:
+  - name: Exercise and Happiness
+    path: mediation.csv
+    description: >-
+      Simulated data on weekly exercise, self-esteem and happiness (n = 150).
+      Weekly hours of exercise raise self-esteem, which in turn raises happiness
+      — a classic partial mediation.
+    tags:
+      - Mediation
+  - name: Stress and Wellbeing
+    path: moderation.csv
+    description: >-
+      Simulated data on perceived stress, social support and wellbeing (n =
+      200). Stress lowers wellbeing, but social support buffers the effect — a
+      classic moderation.
+    tags:
+      - Moderation
 usesNative: true
 minApp: 1.0.8
 
