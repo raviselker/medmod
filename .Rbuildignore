@@ -10,4 +10,8 @@
 ^\.Rproj\.user$
 ^\..*$
 ^.*\.tar.gz
+^.*\.Rcheck$
 ^data$
+^docs$
+^CLAUDE\.md$
+^air\.toml$
