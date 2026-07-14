@@ -25,3 +25,12 @@ Useful links:
 }
 
 }
+\author{
+\strong{Maintainer}: Ravi Selker \email{selker.ravi@gmail.com}
+
+Authors:
+\itemize{
+  \item Ravi Selker \email{selker.ravi@gmail.com}
+}
+
+}

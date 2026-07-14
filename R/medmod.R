@@ -1,5 +1,6 @@
 #' @import lavaan
 #' @importFrom rlang .data
+#' @importFrom R6 R6Class
 NULL
 
 #' medmod: Simple Mediation and Moderation Analysis
