@@ -3,26 +3,25 @@ Type: Package
 Title: Simple Mediation and Moderation Analysis
 Version: 1.1.0
 Date: 2019-11-07
-Author: Ravi Selker
-Maintainer: Ravi Selker <selker.ravi@gmail.com>
+Authors@R: person("Ravi", "Selker", email = "selker.ravi@gmail.com",
+    role = c("aut", "cre"))
 Description: This toolbox allows you to do simple mediation and moderation
     analysis. It is also available as a module for 'jamovi'
     (see <https://www.jamovi.org> for more information). 'Medmod' is based
     on the 'lavaan' package by Yves Rosseel. You can find an in depth tutorial
     on the 'lavaan' model syntax used for this package on
-    <http://lavaan.ugent.be/tutorial/index.html>.
+    <https://lavaan.ugent.be/tutorial/index.html>.
 License: GPL (>= 2)
 Encoding: UTF-8
-LazyData: true
 Depends:
     R (>= 3.2)
 Imports:
     jmvcore (>= 1.0.0),
     R6,
     lavaan,
-    ggplot2,
+    ggplot2 (>= 3.4.0),
     rlang
-Suggests: 
+Suggests:
     testthat
 URL: https://github.com/raviselker/medmod
 BugReports: https://github.com/raviselker/medmod/issues
