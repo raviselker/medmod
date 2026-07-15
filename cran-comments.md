@@ -20,6 +20,7 @@ resolved in this release:
 
 * macOS (release), Windows (release), Ubuntu (release, devel, oldrel-1)
   via GitHub Actions
+* win-builder (devel)
 * local macOS, R release
 
 ## R CMD check results
@@ -27,4 +28,5 @@ resolved in this release:
 0 errors | 0 warnings
 
 The only NOTE is the expected new-submission NOTE (package was archived
-on CRAN).
+on CRAN). The word flagged as possibly misspelled in the DESCRIPTION
+(Rosseel) is the surname of the author of the lavaan package.
