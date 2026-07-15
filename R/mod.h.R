@@ -169,7 +169,6 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         mod = function() private$.items[["mod"]],
         pathDiagram = function() private$.items[["pathDiagram"]],
         simpleSlope = function() private$.items[["simpleSlope"]],
-        model = function() private$.items[["model"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
         ..modelSyntax = NA),
@@ -321,17 +320,6 @@ modResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                                 "estMethod",
                                 "bootstrap",
                                 "ciWidth")))}))$new(options=options))
-            self$add(jmvcore::Preformatted$new(
-                options=options,
-                name="model",
-                visible=FALSE,
-                clearWith=list(
-                    "dep",
-                    "pred",
-                    "mod",
-                    "estMethod",
-                    "bootstrap",
-                    "ciWidth")))
             private$..modelSyntax <- NULL},
         .setModelSyntax=function(x) private$..modelSyntax <- x))
 
@@ -425,7 +413,6 @@ modBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$simpleSlope$estimates} \tab \tab \tab \tab \tab a table containing the simple slope estimates \cr
 #'   \code{results$simpleSlope$plot} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$model} \tab \tab \tab \tab \tab invisible element whose state caches the parameter estimates so display-option changes do not refit the model \cr
 #'   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the moderation model \cr
 #' }
 #'

@@ -80,7 +80,6 @@ A results object containing:
   \code{results$paths} \tab \tab \tab \tab \tab a table containing the individual path estimates \cr
   \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
   \code{results$estPlot} \tab \tab \tab \tab \tab an image \cr
-  \code{results$model} \tab \tab \tab \tab \tab invisible element whose state caches the parameter estimates so display-option changes do not refit the model \cr
   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the mediation model \cr
 }
 

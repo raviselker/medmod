@@ -33,11 +33,11 @@ modClass <- R6::R6Class(
         #### Compute results ----
         .compute = function(data) {
             # the estimates only depend on the variables, the estimation
-            # options and the CI level (the model cache's clearWith), so
-            # reuse them across other option changes -- refitting is
-            # expensive with bootstrap SEs. Only lavaan's estimates table is
-            # kept, so the state size does not grow with the data
-            est <- self$results$model$state
+            # options and the CI level (the main table's clearWith), so
+            # cache them in the table's state across other option changes --
+            # refitting is expensive with bootstrap SEs. Only lavaan's estimates
+            # table is kept, so the state size does not grow with the data
+            est <- self$results$mod$state
 
             if (is.null(est)) {
                 model <- private$.lavaanify()
@@ -53,7 +53,7 @@ modClass <- R6::R6Class(
                     level = self$options$ciWidth / 100
                 )
 
-                self$results$model$setState(est)
+                self$results$mod$setState(est)
             }
 
             return(list('est' = est))
