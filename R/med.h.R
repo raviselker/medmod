@@ -368,7 +368,13 @@ medBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 
 #' Mediation
 #'
-#' Simple mediation analysis
+#' Simple mediation analysis. Estimates the indirect, direct and total effects 
+#' of a model in which a predictor influences the dependent variable through a 
+#' mediator. The model is fitted with the lavaan package (Rosseel, 2012); 
+#' standard errors are computed with the delta method (equivalent to the Sobel 
+#' test for the indirect effect) or by bootstrapping. Optionally provides the 
+#' individual path estimates, an estimate plot, and an annotated path diagram 
+#' of the model.
 #'
 #' @examples
 #' set.seed(1234)

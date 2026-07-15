@@ -6,11 +6,13 @@ Date: 2026-07-14
 Authors@R: person("Ravi", "Selker", email = "selker.ravi@gmail.com",
     role = c("aut", "cre"))
 Description: This toolbox allows you to do simple mediation and moderation
-    analysis. It is also available as a module for 'jamovi'
-    (see <https://www.jamovi.org> for more information). 'Medmod' is based
-    on the 'lavaan' package by Yves Rosseel. You can find an in depth tutorial
-    on the 'lavaan' model syntax used for this package on
-    <https://lavaan.ugent.be/tutorial/index.html>.
+    analysis. Models are estimated with the 'lavaan' package by Rosseel (2012)
+    <doi:10.18637/jss.v048.i02>; standard errors for the mediation estimates
+    are computed with the delta method following Sobel (1982)
+    <doi:10.2307/270723> or by bootstrapping. It is also available as a module
+    for 'jamovi' (see <https://www.jamovi.org> for more information). You can
+    find an in depth tutorial on the 'lavaan' model syntax used for this
+    package on <https://lavaan.ugent.be/tutorial/index.html>.
 License: GPL (>= 2)
 Encoding: UTF-8
 Depends:
