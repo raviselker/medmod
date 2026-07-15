@@ -6,15 +6,12 @@
 \alias{medmod-package}
 \title{medmod: Simple Mediation and Moderation Analysis}
 \description{
-A package for simple mediation and moderation based on the \code{\link[lavaan]{lavaan}}
-package by Yves Rosseel. Medmod is also available as a
-module for 'jamovi' (see \href{https://www.jamovi.org}{www.jamovi.org} for
-more information).
+This toolbox allows you to do simple mediation and moderation analysis. Models are estimated with the 'lavaan' package by Rosseel (2012) \doi{10.18637/jss.v048.i02}; standard errors for the mediation estimates are computed with the delta method following Sobel (1982) \doi{10.2307/270723} or by bootstrapping. It is also available as a module for 'jamovi' (see \url{https://www.jamovi.org} for more information). You can find an in depth tutorial on the 'lavaan' model syntax used for this package on \url{https://lavaan.ugent.be/tutorial/index.html}.
 }
 \details{
-\tabular{llllll}{
-  Simple mediation analysis \tab \tab \tab \tab \code{\link{med}()} \cr
-  Simple moderation analysis \tab \tab \tab \tab \code{\link{mod}()} \cr
+\tabular{ll}{
+  Simple mediation analysis \tab \code{\link{med}()} \cr
+  Simple moderation analysis \tab \code{\link{mod}()} \cr
 }
 }
 \seealso{
