@@ -91,7 +91,13 @@ Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.f
 \code{as.data.frame(results$mod)}
 }
 \description{
-Simple mediation analysis
+Simple moderation analysis. Estimates a model in which the effect of a 
+predictor on the dependent variable depends on the value of a moderator, 
+testing the main effects of predictor and moderator and their interaction. 
+All variables are mean-centered before the model is fitted with the lavaan 
+package (Rosseel, 2012); standard errors are computed with the delta method 
+or by bootstrapping. Optionally provides a simple slope analysis with a 
+corresponding plot, and an annotated path diagram of the model.
 }
 \examples{
 set.seed(1234)

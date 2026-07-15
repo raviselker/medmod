@@ -16,14 +16,28 @@ analyses:
     ns: medmod
     menuGroup: medmod
     menuTitle: Mediation
-    description: Simple mediation analysis
+    description: >-
+      Simple mediation analysis. Estimates the indirect, direct and total
+      effects of a model in which a predictor influences the dependent variable
+      through a mediator. The model is fitted with the lavaan package (Rosseel,
+      2012); standard errors are computed with the delta method (equivalent to
+      the Sobel test for the indirect effect) or by bootstrapping. Optionally
+      provides the individual path estimates, an estimate plot, and an annotated
+      path diagram of the model.
     category: analyses
   - title: Moderation
     name: mod
     ns: medmod
     menuGroup: medmod
     menuTitle: Moderation
-    description: Simple mediation analysis
+    description: >-
+      Simple moderation analysis. Estimates a model in which the effect of a
+      predictor on the dependent variable depends on the value of a moderator,
+      testing the main effects of predictor and moderator and their interaction.
+      All variables are mean-centered before the model is fitted with the lavaan
+      package (Rosseel, 2012); standard errors are computed with the delta
+      method or by bootstrapping. Optionally provides a simple slope analysis
+      with a corresponding plot, and an annotated path diagram of the model.
     category: analyses
 datasets:
   - name: Exercise and Happiness
