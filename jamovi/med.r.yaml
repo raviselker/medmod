@@ -157,20 +157,6 @@ items:
         - ciWidth
         - label
         
-    - name:  model
-      type:  Preformatted
-      visible: false
-      description: >-
-        invisible element whose state caches the parameter estimates so
-        display-option changes do not refit the model
-      clearWith:
-        - dep
-        - pred
-        - med
-        - estMethod
-        - bootstrap
-        - ciWidth
-
     - name:  modelSyntax
       type:  Property
       description: the lavaan syntax used to fit the mediation model

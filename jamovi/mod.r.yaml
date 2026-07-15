@@ -140,20 +140,6 @@ items:
             - bootstrap
             - ciWidth
               
-    - name:  model
-      type:  Preformatted
-      visible: false
-      description: >-
-        invisible element whose state caches the parameter estimates so
-        display-option changes do not refit the model
-      clearWith:
-        - dep
-        - pred
-        - mod
-        - estMethod
-        - bootstrap
-        - ciWidth
-
     - name:  modelSyntax
       type:  Property
       description: the lavaan syntax used to fit the moderation model

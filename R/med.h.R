@@ -170,7 +170,6 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         paths = function() private$.items[["paths"]],
         pathDiagram = function() private$.items[["pathDiagram"]],
         estPlot = function() private$.items[["estPlot"]],
-        model = function() private$.items[["model"]],
         modelSyntax = function() private$..modelSyntax),
     private = list(
         ..modelSyntax = NA),
@@ -331,17 +330,6 @@ medResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "bootstrap",
                     "ciWidth",
                     "label")))
-            self$add(jmvcore::Preformatted$new(
-                options=options,
-                name="model",
-                visible=FALSE,
-                clearWith=list(
-                    "dep",
-                    "pred",
-                    "med",
-                    "estMethod",
-                    "bootstrap",
-                    "ciWidth")))
             private$..modelSyntax <- NULL},
         .setModelSyntax=function(x) private$..modelSyntax <- x))
 
@@ -434,7 +422,6 @@ medBase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   \code{results$paths} \tab \tab \tab \tab \tab a table containing the individual path estimates \cr
 #'   \code{results$pathDiagram} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$estPlot} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$model} \tab \tab \tab \tab \tab invisible element whose state caches the parameter estimates so display-option changes do not refit the model \cr
 #'   \code{results$modelSyntax} \tab \tab \tab \tab \tab the lavaan syntax used to fit the mediation model \cr
 #' }
 #'
